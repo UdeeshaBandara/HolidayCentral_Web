@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@font-face {
+  font-family: "bold";   /*Can be any text*/
+  src: local("NunitoSansBold"),
+  url("./fonts/NunitoSans-Bold.ttf") format("truetype");
+}
