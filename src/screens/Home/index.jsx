@@ -8,7 +8,6 @@ import TextField from "@mui/material/TextField";
 import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
-import SendIcon from '@mui/icons-material/Send';
 
 const theme = createTheme();
 
