@@ -12,7 +12,27 @@ code {
     monospace;
 }
 @font-face {
-  font-family: "bold";   /*Can be any text*/
+  font-family: "bold";
   src: local("NunitoSansBold"),
   url("./fonts/NunitoSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "light";
+  src: local("NunitoSansBold"),
+  url("./fonts/NunitoSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "regular";
+  src: local("NunitoSansBold"),
+  url("./fonts/NunitoSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "extra";
+  src: local("NunitoSansBold"),
+  url("./fonts/NunitoSans-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "semi";
+  src: local("NunitoSansBold"),
+  url("./fonts/NunitoSans-SemiBold.ttf") format("truetype");
 }
