@@ -18,20 +18,27 @@ import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Grid";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TextField from "@mui/material/TextField";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Plane from "../Plane";
 import MenuItem from "@mui/material/MenuItem";
-import { CartProvider, useCart } from "react-use-cart";
-export default function FlightDetail({item}) {
-    const { addItem } = useCart();
+import {CartProvider, useCart} from "react-use-cart";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import {useNavigate} from "react-router-dom";
+
+export default function FlightDetail({item, isCart = false}) {
+    const {addItem, removeItem,totalUniqueItems} = useCart();
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [age, setAge] = useState('');
     const handleClickOpen = () => {
+
+
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleSubmit = () => {
         setOpen(false);
+        item.id = item._id;
         addItem(item);
     };
     return (
@@ -43,77 +50,88 @@ export default function FlightDetail({item}) {
             alignItems: 'center',
             py: 2,
             px: 5,
-            mx: 5,
+
             borderWidth: 1,
             borderStyle: 'solid',
             borderColor: '#E9E8FC',
             borderRadius: 3
+            , gap: 2
         }}>
-            <AirLineIcon sx={{
-                width: 100, height: 100,
+            <Box
+                component="img"
+                sx={{
+                    width: 50, height: 50,
+                }}
+                src={item.airlineImage}
+            />
 
-            }}/>
             <Box sx={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
 
             }}>
                 <Typography
                     variant="body2"
-                    align="left"
+                    align="center"
                     color="grey.700"
                 >
-                    FIG4312
+                    {item.flightNo}
                 </Typography>
                 <Typography
                     variant="body2"
-                    align="left"
+                    align="center"
                     color={Colors.gray002}
-                >
-                    Hawaiian Airlines
+                >          {item.airline}
+
                 </Typography>
 
             </Box>
-            <Typography
+            {!isCart ? <Grid> <Typography
                 variant="body2"
-                align="left"
+                align="center"
                 color="grey.700"
             >
-                16h 45m
+                {item.flightNo}
             </Typography>
+                <Box sx={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
+
+                }}>
+                    <Typography
+                        variant="body2"
+                        align="center"
+                        color="grey.700"
+                    >
+                        1 stop
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        align="center"
+                        color={Colors.gray002}
+                    >
+                        2h 45m in HNL
+                    </Typography>
+
+                </Box></Grid> : <Typography
+                variant="body2"
+                align="center"
+                color={Colors.gray002}
+            >
+                Quantity {item.quantity}
+            </Typography>}
             <Box sx={{
-                display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
+                display: 'flex', flexDirection: 'column', alignItems: 'center',flex: 1
 
             }}>
                 <Typography
                     variant="body2"
-                    align="left"
+                    align="center"
                     color="grey.700"
                 >
-                    1 stop
+                    $ {item.price}
                 </Typography>
                 <Typography
                     variant="body2"
-                    align="left"
-                    color={Colors.gray002}
-                >
-                    2h 45m in HNL
-                </Typography>
-
-            </Box>
-            <Box sx={{
-                display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
-
-            }}>
-                <Typography
-                    variant="body2"
-                    align="left"
-                    color="grey.700"
-                >
-                    $624
-                </Typography>
-                <Typography
-                    variant="body2"
-                    align="left"
+                    align="center"
                     color={Colors.gray002}
                 >
                     round trip
@@ -122,7 +140,24 @@ export default function FlightDetail({item}) {
             </Box>
 
             <Grid item xs={11} sm={3} md={1.5}>
-                <Button variant="outlined" size="large" endIcon={<AddShoppingCartIcon sx={{
+                {isCart ? <Button variant="outlined" size="large" endIcon={<RemoveCircleOutlineIcon sx={{
+                    width: 15, height: 15
+                }}/>} onClick={() => {
+                    removeItem(item.id)
+                    if(totalUniqueItems===1)
+                        navigate('/');
+
+                }} sx={{
+                    textTransform: "none",
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 50,
+                    border: 1,
+                    fontSize: 14,
+                    fontWeight: 'light'
+                }}>
+                    remove
+                </Button> : <Button variant="outlined" size="large" endIcon={<AddShoppingCartIcon sx={{
                     width: 30, height: 30
                 }}/>} onClick={handleClickOpen} sx={{
                     textTransform: "none",
@@ -134,10 +169,10 @@ export default function FlightDetail({item}) {
                     fontWeight: 'light'
                 }}>
                     Add to cart
-                </Button>
+                </Button>}
             </Grid>
-            <Dialog      fullWidth={true}
-                         maxWidth={"md"} open={open} onClose={handleClose}>
+            <Dialog fullWidth={true}
+                    maxWidth={"md"} open={open}>
                 <Grid container direction="row" alignItems="center" justifyContent='center'
                       sx={{
                           gap: 2,
@@ -188,8 +223,8 @@ export default function FlightDetail({item}) {
                         </Grid>
 
                         <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button onClick={handleClose}>Add to cart</Button>
+                            <Button onClick={() => setOpen(false)}>Cancel</Button>
+                            <Button onClick={handleSubmit}>Add to cart</Button>
                         </DialogActions>
                     </Grid>
                 </Grid>

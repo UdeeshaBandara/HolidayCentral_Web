@@ -64,7 +64,7 @@ function MainAppBar() {
     };
 
     return (
-        <AppBar position="static" sx={{bgcolor: Colors.primaryDarkBlue}} enableColorOnDark>
+        <AppBar position="fixed" sx={{bgcolor: Colors.primaryDarkBlue}} enableColorOnDark>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>

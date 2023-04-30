@@ -1,29 +1,23 @@
 import * as React from 'react';
-import AirLineIcon from "../../Assets/SVGIcons/AirLineIcon";
 import {
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle, Divider, Drawer,
-    FormControl,
-    InputLabel, List,
-    ListItem, ListItemButton, ListItemIcon, ListItemText,
-    Select,
+    Divider, Drawer, List,
     Typography
 } from "@mui/material";
 import {Colors} from "../../Theme/Variables";
 import Button from "@mui/material/Button";
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import {CartProvider, useCart} from "react-use-cart";
+import {useCart} from "react-use-cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import FlightDetail from "../FlightDetail";
+import {useNavigate} from "react-router-dom";
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import {useState} from "react";
 
 
-export default function CartNav({children}) {
-    const [state, setState] = React.useState({
+export default function CartNav() {
+    const navigate = useNavigate();
+    const [state, setState] = useState({
         top: false,
         left: false,
         bottom: false,
@@ -83,14 +77,8 @@ export default function CartNav({children}) {
                 >
                     <List>
                         {items.map((text, index) => (
-                            <ListItem key={text.id} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text.name}/>
-                                </ListItemButton>
-                            </ListItem>
+                            <FlightDetail key={index} item={text} isCart={true}/>
+
                         ))}
                     </List>
                     <Divider/>
@@ -132,7 +120,7 @@ export default function CartNav({children}) {
                                 variant="body2"
                                 align="left"
                                 color={Colors.primaryBlack}
-                            > ${cartTotal*0.15}</Typography>
+                            > ${cartTotal * 0.15}</Typography>
 
                             </Grid>
                         </Grid>
@@ -150,11 +138,24 @@ export default function CartNav({children}) {
                                 variant="body2"
                                 align="left"
                                 color={Colors.primaryBlack}
-                            > ${(cartTotal+ cartTotal*0.15)}</Typography>
+                            > ${(cartTotal + cartTotal * 0.15)}</Typography>
 
                             </Grid>
                         </Grid>
-
+                        <Button variant="outlined" size="large" endIcon={<ShoppingCartCheckoutIcon sx={{
+                            width: 30, height: 30,
+                        }}/>} onClick={() => navigate('/flight-checkout')} sx={{
+                            textTransform: "none",
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 50,
+                            border: 1,
+                            fontSize: 14,
+                            fontWeight: 'light',
+                            mr: 1
+                        }}>
+                            Checkout
+                        </Button>
                     </Grid>
 
 

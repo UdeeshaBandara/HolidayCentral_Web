@@ -7,15 +7,17 @@ import './fonts/NunitoSans-Bold.ttf'
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import FlightSearch from "./components/FlightSearch";
+import Checkout from "./screens/Checkout";
 
 function App() {
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
             <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='register' element={<Register/>}/>
-                <Route path='login' element={<Login/>}/>
-                <Route path='flight-search' element={<FlightSearch/>}/>
+                <Route exact path='/' element={<Home/>}/>
+                <Route path='/register' element={<Register/>}/>
+                <Route path='/login' element={<Login/>}/>
+                <Route exact path='/flight-search' element={<FlightSearch/>}/>
+                <Route exact path='/flight-checkout' element={<Checkout/>}/>
             </Routes>
         </LocalizationProvider>
     );

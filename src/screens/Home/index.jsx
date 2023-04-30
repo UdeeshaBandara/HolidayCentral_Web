@@ -1,19 +1,57 @@
 import * as React from 'react';
-import {createTheme} from '@mui/material/styles';
-import Map from "../../Assets/SVGIcons/Map";
-import {Autocomplete, Typography} from "@mui/material";
-import TextField from "@mui/material/TextField";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Autocomplete, Snackbar, Typography} from "@mui/material";
 import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
+import TextField from "@mui/material/TextField";
+import {Alert} from '@mui/material'
+
+import MainAppBar from "../../components/AppBar";
+
+import Map from "../../Assets/SVGIcons/Map";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import MainAppBar from "../../components/AppBar";
-import {useNavigate} from "react-router-dom";
+
+
+import {createTheme} from '@mui/material/styles';
 
 const theme = createTheme();
 
 export default function Home() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const [alertState, setAlertState] = React.useState({
+        vertical: 'top',
+        horizontal: 'center',
+        isOpen: false,
+        message: ''
+    });
+    const {vertical, horizontal, isOpen, message} = alertState;
+    const [filterValues, setFilterValues] = useState([]);
+    const [selectedFilterValues, setSelectedFilterValues] = useState({
+        departure: "",
+        arrival: '',
+        fromDate: '',
+        toDate: '',
+        cabin: '',
+        airline: ''
+    });
+
+    useEffect(() => {
+        getFilterValues();
+    }, []);
+
+    const getFilterValues = () => {
+        fetch("http://localhost:3001/flight/query/param")
+            .then((response) => response.json())
+            .then((data) => {
+                data.cabins = data.cabins.map(a => a.name);
+                data.cabins = [...new Set(data.cabins.map(item => item))];
+                setFilterValues(data);
+
+            });
+    };
 
     return (
         <Grid>
@@ -74,9 +112,12 @@ export default function Home() {
                                 <Autocomplete
                                     id="departure"
                                     freeSolo
-
                                     xs={12}
-                                    options={['sample', 'sample1']}
+                                    onChange={(event, value) => setSelectedFilterValues({
+                                        ...selectedFilterValues,
+                                        departure: value
+                                    })}
+                                    options={filterValues.departures}
                                     renderInput={(params) => <TextField {...params} label="Departure"/>}
                                 />
                             </Grid>
@@ -86,11 +127,29 @@ export default function Home() {
                                     freeSolo
                                     sx={{flex: 1,}}
                                     xs={12}
-                                    options={['sample', 'sample1']}
+                                    onChange={(event, value) => setSelectedFilterValues({
+                                        ...selectedFilterValues,
+                                        arrival: value
+                                    })}
+                                    options={filterValues.arrivals}
                                     renderInput={(params) => <TextField {...params} label="Arrival"/>}/>
                             </Grid>
                             <Grid item xs={12} sm={3} md={2}>
                                 <DateRangePicker
+                                    onChange={(newValue) => {
+                                        if (newValue[0] !== null) {
+                                            setSelectedFilterValues({
+                                                ...selectedFilterValues,
+                                                fromDate: newValue[0]._d
+                                            })
+                                        }
+                                        if (newValue[1] !== null) {
+                                            setSelectedFilterValues({
+                                                ...selectedFilterValues,
+                                                toDate: newValue[1]._d
+                                            })
+                                        }
+                                    }}
                                     xs={12} sx={{flex: 1,}}
                                     localeText={{start: 'Departure Date', end: 'Arrival Date'}}/>
                             </Grid>
@@ -100,8 +159,13 @@ export default function Home() {
                                     freeSolo
                                     sx={{flex: 1,}}
                                     xs={12}
-                                    options={['sample', 'sample1']}
-                                    renderInput={(params) => <TextField {...params} label="Cabin"/>}/>
+                                    onChange={(event, value) => setSelectedFilterValues({
+                                        ...selectedFilterValues,
+                                        cabin: value
+                                    })}
+                                    options={filterValues.cabins}
+                                    renderInput={(params) => <TextField {...params} label="Cabin"/>}
+                                />
                             </Grid>
                             <Grid item xs={12} sm={3} md={2}>
                                 <Autocomplete
@@ -109,7 +173,11 @@ export default function Home() {
                                     freeSolo
                                     xs={12}
                                     sx={{flex: 1,}}
-                                    options={['sample', 'sample1']}
+                                    onChange={(event, value) => setSelectedFilterValues({
+                                        ...selectedFilterValues,
+                                        airline: value
+                                    })}
+                                    options={filterValues.airlines}
                                     renderInput={(params) => <TextField {...params}
                                                                         label="Airline (Optional)"/>}/></Grid>
 
@@ -118,8 +186,31 @@ export default function Home() {
                         <Button variant="outlined" size="large" endIcon={<SearchIcon sx={{
                             width: 30,
                             height: 30
-                        }}/>} onClick={()=>{
-                            navigate('flight-search')
+                        }}/>} onClick={() => {
+                            if (selectedFilterValues.departure === '') {
+                                setAlertState({
+                                    ...alertState,
+                                    message: 'Please select departure location',
+                                    isOpen: true
+                                });
+                            } else if (selectedFilterValues.arrival === '') {
+                                setAlertState({...alertState, message: 'Please select arrival location', isOpen: true});
+                            } else if (selectedFilterValues.fromDate === '') {
+                                setAlertState({...alertState, message: 'Please select from date', isOpen: true});
+                            } else if (selectedFilterValues.toDate === '') {
+                                setAlertState({...alertState, message: 'Please select to date', isOpen: true});
+                            } else if (selectedFilterValues.cabin === '') {
+                                setAlertState({...alertState, message: 'Please select cabin type', isOpen: true});
+                            } else {
+
+                                navigate('flight-search', {
+                                    state: {
+                                        selectedFilterValues: selectedFilterValues,
+                                        filterValues: filterValues
+                                    }
+                                })
+                            }
+
                         }} sx={{
                             textTransform: "none",
                             mt: 5,
@@ -135,6 +226,15 @@ export default function Home() {
                     </Grid>
                 </Grid>
             </Grid>
+            <Snackbar
+                autoHideDuration={6000}
+                anchorOrigin={{vertical, horizontal}}
+                open={isOpen}
+                onClose={() => setAlertState({...alertState, isOpen: false})}
+                key={vertical + horizontal}
+            >
+                <Alert severity="error">{message}</Alert>
+            </Snackbar>
         </Grid>
     );
 }
