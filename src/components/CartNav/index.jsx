@@ -1,48 +1,41 @@
 import * as React from 'react';
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useCart} from "react-use-cart";
+
+import FlightDetail from "../FlightDetail";
+
 import {
     Divider, Drawer, List,
     Typography
 } from "@mui/material";
-import {Colors} from "../../Theme/Variables";
 import Button from "@mui/material/Button";
-import {useCart} from "react-use-cart";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import FlightDetail from "../FlightDetail";
-import {useNavigate} from "react-router-dom";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import {useState} from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+import {Colors} from "../../Theme/Variables";
 
 export default function CartNav() {
     const navigate = useNavigate();
-    const [state, setState] = useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-    });
+    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleDrawer = (anchor, open) => (event) => {
+    const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
 
-        setState({...state, [anchor]: open});
+        setIsOpen(open);
     };
     const {
-        isEmpty,
         totalUniqueItems,
         items,
-        updateItemQuantity,
-        removeItem,
         cartTotal
     } = useCart();
     return (
         <>
             <React.Fragment key={'right'}>
-
                 <Box onClick={toggleDrawer('right', true)} sx={{mr: 3, position: 'relative',}}>
                     <Typography
                         noWrap
@@ -66,17 +59,17 @@ export default function CartNav() {
                 </Box>
                 <Drawer
                     anchor={'right'}
-                    open={state['right']}
-                    onClose={toggleDrawer('right', false)}
+                    open={isOpen}
+                    onClose={toggleDrawer(false)}
                 ><Box
                     sx={{width: "100%"}}
                     role="presentation"
-                    onClick={toggleDrawer('right', false)}
-                    onKeyDown={toggleDrawer('right', false)}
+                    onClick={toggleDrawer( false)}
+                    onKeyDown={toggleDrawer( false)}
                 >
                     <List>
                         {items.map((text, index) => (
-                            <Grid sx={{mx: 2}}>  <FlightDetail key={index} item={text} isCart={true}/></Grid>
+                            <Grid sx={{mx: 2}}> <FlightDetail key={index} item={text} isCart={true}/></Grid>
 
                         ))}
                     </List>
@@ -156,8 +149,6 @@ export default function CartNav() {
                             Checkout
                         </Button>
                     </Grid>
-
-
                 </Box>
                 </Drawer>
             </React.Fragment></>);

@@ -19,7 +19,7 @@ import Grid from "@mui/material/Grid";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TextField from "@mui/material/TextField";
 import {useEffect, useState} from "react";
-import Plane from "../Plane";
+import Plane from "../../Assets/SVGIcons/Plane";
 import MenuItem from "@mui/material/MenuItem";
 import {CartProvider, useCart} from "react-use-cart";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';

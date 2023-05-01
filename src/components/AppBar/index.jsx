@@ -1,21 +1,23 @@
 import * as React from 'react';
+import {useCart} from "react-use-cart";
+
+import CartNav from "../CartNav";
+
+import AdbIcon from '@mui/icons-material/Adb';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+
 import {Colors} from "../../Theme/Variables";
-import {useCart} from "react-use-cart";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import CartNav from "../CartNav";
 
 
 const pages = ['Flights', 'Hotel', 'Packages'];
@@ -23,35 +25,15 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function MainAppBar() {
     const {
-        isEmpty,
-        totalUniqueItems,
-        items,
-        updateItemQuantity,
-        removeItem,
+        isEmpty
     } = useCart();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-    });
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({...state, [anchor]: open});
-    };
 
     const handleOpenNavMenu = (event) => {
-        console.log('handleOpenNavMenu')
         setAnchorElNav(event.currentTarget);
     };
     const handleOpenUserMenu = (event) => {
-        console.log('handleOpenUserMenu')
         setAnchorElUser(event.currentTarget);
     };
 

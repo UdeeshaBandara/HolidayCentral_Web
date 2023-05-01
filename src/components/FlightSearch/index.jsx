@@ -1,26 +1,25 @@
-import Box from "@mui/material/Box";
-import AirLineIcon from "../../Assets/SVGIcons/AirLineIcon";
-import {Alert, Autocomplete, FormControl, InputLabel, ListItem, Select, Snackbar, Typography} from "@mui/material";
-import {Colors} from "../../Theme/Variables";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import {DateRangePicker} from "@mui/x-date-pickers-pro/DateRangePicker";
 import * as React from "react";
-import MainAppBar from "../AppBar";
-import SearchIcon from "@mui/icons-material/Search";
-import Button from "@mui/material/Button";
-import FlightDetail from "../FlightDetail";
-import MenuItem from "@mui/material/MenuItem";
 import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from 'react-router-dom';
-import dayjs from 'dayjs';
-import IconButton from "@mui/material/IconButton";
+import {useLocation} from 'react-router-dom';
+
+import MainAppBar from "../AppBar";
+
+import {Alert, Autocomplete, FormControl, InputLabel, Select, Snackbar, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
 import ClearIcon from '@mui/icons-material/Clear';
+import {DateRangePicker} from "@mui/x-date-pickers-pro/DateRangePicker";
+import FlightDetail from "../FlightDetail";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@mui/material/TextField";
+
+import {Colors} from "../../Theme/Variables";
 
 export default function FlightSearch() {
     const location = useLocation();
-    const navigate = useNavigate();
-    const [filterValues, setFilterValues] = useState(location.state.filterValues);
+    const [filterValues] = useState(location.state.filterValues);
     const [alertState, setAlertState] = React.useState({
         vertical: 'top',
         horizontal: 'center',
@@ -38,7 +37,7 @@ export default function FlightSearch() {
 
     useEffect(() => {
         getFlights();
-    }, [location.state.selectedFilterValues]);
+    },[]);
 
     const filterFlights = (price, duration, airline) => {
         let flightFiltered;
@@ -78,12 +77,14 @@ export default function FlightSearch() {
             .then((response) => response.json())
             .then((data) => {
 
+                if (data.status) {
 
-                if (!data.status) {
-
-                    setFlights(data);
-                    setFlightsOriginal(data);
+                    setFlights(data.data);
+                    setFlightsOriginal(data.data);
                     setDurationList([...new Set(data.map(item => item.duration))]);
+                } else {
+                    setFlights([]);
+                    setFlightsOriginal([]);
                 }
 
             });
@@ -170,7 +171,6 @@ export default function FlightSearch() {
                     <Autocomplete
                         id="airline"
                         freeSolo
-                        inputProps={{autoComplete: 'off'}}
                         xs={12}
                         sx={{flex: 1,}}
                         value={selectedFilterValues.airline}
@@ -280,7 +280,6 @@ export default function FlightSearch() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={11} sm={3} md={1.5}>
-
                         <FormControl fullWidth>
                             <InputLabel id="airline">Airline</InputLabel>
                             <Select
@@ -311,8 +310,8 @@ export default function FlightSearch() {
 
             </Grid>
             {flights.length > 0 ? flights.map((item, idx) => {
-                return (<Grid sx={{mx: 5}}><FlightDetail key={idx} item={item} cabin_type={selectedFilterValues.cabin}/></Grid>);
-            }) : <Grid item xs={11} sm={3} md={1.5}>
+                return (<Grid sx={{mx: 5}} key={idx}><FlightDetail item={item} cabin_type={selectedFilterValues.cabin}/></Grid>);
+            }) : <Grid item xs={11} sm={3} md={1.5} key={new Date()}>
 
                 <Typography
                     variant="h6"

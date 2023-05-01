@@ -13,11 +13,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-
-import {createTheme} from '@mui/material/styles';
-
-const theme = createTheme();
-
 export default function Home() {
     const navigate = useNavigate();
 
