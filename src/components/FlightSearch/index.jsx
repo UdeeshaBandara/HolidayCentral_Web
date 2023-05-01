@@ -1,6 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useLocation} from 'react-router-dom';
+import env from "react-dotenv";
 
 import MainAppBar from "../AppBar";
 
@@ -62,7 +63,7 @@ export default function FlightSearch() {
 
     };
     const getFlights = () => {
-        fetch("http://localhost:3001/flight/query", {
+        fetch(`${env.BASE_URL}flight/query`, {
             method: 'POST', body: JSON.stringify({
                 departure: selectedFilterValues.departure,
                 arrival: selectedFilterValues.arrival,

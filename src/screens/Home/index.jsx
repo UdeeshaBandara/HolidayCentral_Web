@@ -1,4 +1,5 @@
 import * as React from 'react';
+import env from "react-dotenv";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Autocomplete, Snackbar, Typography} from "@mui/material";
@@ -38,7 +39,7 @@ export default function Home() {
     }, []);
 
     const getFilterValues = () => {
-        fetch("http://localhost:3001/flight/query/param")
+        fetch(`${env.BASE_URL}flight/query/param`)
             .then((response) => response.json())
             .then((data) => {
                 data.cabins = data.cabins.map(a => a.name);

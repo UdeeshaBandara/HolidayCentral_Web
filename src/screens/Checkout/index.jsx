@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useState} from "react";
+import env from "react-dotenv";
 
 import {Alert, Snackbar} from "@mui/material";
 import {useCart} from "react-use-cart";
@@ -54,7 +55,7 @@ export default function Checkout() {
 
     };
     const saveReservation = async (item) => {
-        let response = await fetch("http://localhost:3001/flight/book", {
+        let response = await fetch(`${env.BASE_URL}flight/book`, {
             method: 'POST', body: JSON.stringify({
                 flight_id: item.id,
                 meal_type: item.meal,
