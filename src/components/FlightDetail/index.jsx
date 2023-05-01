@@ -26,7 +26,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import {useNavigate} from "react-router-dom";
 
 export default function FlightDetail({item, isCart = false}) {
-    const {addItem, removeItem,totalUniqueItems} = useCart();
+    const {addItem, removeItem, totalUniqueItems} = useCart();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [age, setAge] = useState('');
@@ -50,7 +50,6 @@ export default function FlightDetail({item, isCart = false}) {
             alignItems: 'center',
             py: 2,
             px: 5,
-
             borderWidth: 1,
             borderStyle: 'solid',
             borderColor: '#E9E8FC',
@@ -66,7 +65,8 @@ export default function FlightDetail({item, isCart = false}) {
             />
 
             <Box sx={{
-                display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
+                display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1,
+                flexBasis: 0,
 
             }}>
                 <Typography
@@ -93,7 +93,8 @@ export default function FlightDetail({item, isCart = false}) {
                 {item.flightNo}
             </Typography>
                 <Box sx={{
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1,
+                    flexBasis: 0,
 
                 }}>
                     <Typography
@@ -108,7 +109,7 @@ export default function FlightDetail({item, isCart = false}) {
                         align="center"
                         color={Colors.gray002}
                     >
-                        2h 45m in HNL
+                        {Math.floor(item.duration / 60)} Hours {item.duration % 60 !== 0 ? item.duration % 60 + ' minutes' : null}
                     </Typography>
 
                 </Box></Grid> : <Typography
@@ -119,7 +120,8 @@ export default function FlightDetail({item, isCart = false}) {
                 Quantity {item.quantity}
             </Typography>}
             <Box sx={{
-                display: 'flex', flexDirection: 'column', alignItems: 'center',flex: 1
+                display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1,
+                flexBasis: 0,
 
             }}>
                 <Typography
@@ -144,7 +146,7 @@ export default function FlightDetail({item, isCart = false}) {
                     width: 15, height: 15
                 }}/>} onClick={() => {
                     removeItem(item.id)
-                    if(totalUniqueItems===1)
+                    if (totalUniqueItems === 1)
                         navigate('/');
 
                 }} sx={{

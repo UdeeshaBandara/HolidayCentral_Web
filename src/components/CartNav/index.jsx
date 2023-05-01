@@ -45,7 +45,6 @@ export default function CartNav() {
 
                 <Box onClick={toggleDrawer('right', true)} sx={{mr: 3, position: 'relative',}}>
                     <Typography
-
                         noWrap
                         sx={{
                             position: 'absolute',
@@ -77,7 +76,7 @@ export default function CartNav() {
                 >
                     <List>
                         {items.map((text, index) => (
-                            <FlightDetail key={index} item={text} isCart={true}/>
+                            <Grid sx={{mx: 2}}>  <FlightDetail key={index} item={text} isCart={true}/></Grid>
 
                         ))}
                     </List>

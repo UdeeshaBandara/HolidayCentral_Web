@@ -13,6 +13,9 @@ import FlightDetail from "../FlightDetail";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
+import dayjs from 'dayjs';
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function FlightSearch() {
     const location = useLocation();
@@ -26,12 +29,39 @@ export default function FlightSearch() {
     });
     const {vertical, horizontal, isOpen, message} = alertState;
     const [flights, setFlights] = useState([]);
+    const [flightsOriginal, setFlightsOriginal] = useState([]);
     const [selectedFilterValues, setSelectedFilterValues] = useState(location.state.selectedFilterValues);
-    const [age, setAge] = useState('');
+    const [price, setPrice] = useState('');
+    const [duration, setDuration] = useState('');
+    const [durationList, setDurationList] = useState('');
+    const [airline, setAirline] = useState('');
+
     useEffect(() => {
         getFlights();
     }, [location.state.selectedFilterValues]);
 
+    const filterFlights = (price, duration, airline) => {
+        let flightFiltered;
+        if (price !== '' && duration !== '' && airline !== '') {
+            flightFiltered = flightsOriginal.filter(x => x.price <= price && x.duration === duration && x.airline === airline);
+        } else if (price === '' && duration === '' && airline === '') {
+            flightFiltered = flightsOriginal;
+        } else if (price !== '' && duration !== '') {
+            flightFiltered = flightsOriginal.filter(x => x.price <= price && x.duration === duration);
+        } else if (price !== '' && airline !== '') {
+            flightFiltered = flightsOriginal.filter(x => x.price <= price && x.airline === airline);
+        } else if (duration !== '' && airline !== '') {
+            flightFiltered = flightsOriginal.filter(x => x.airline <= airline && x.duration === duration);
+        } else if (price === '' && duration === '') {
+            flightFiltered = flightsOriginal.filter(x => x.airline === airline);
+        } else if (airline === '' && duration === '') {
+            flightFiltered = flightsOriginal.filter(x => x.price <= price);
+        } else if (airline === '' && price === '') {
+            flightFiltered = flightsOriginal.filter(x => x.duration === duration);
+        }
+        setFlights(flightFiltered);
+
+    };
     const getFlights = () => {
         fetch("http://localhost:3001/flight/query", {
             method: 'POST', body: JSON.stringify({
@@ -49,7 +79,12 @@ export default function FlightSearch() {
             .then((data) => {
 
 
-                if (!data.status) setFlights(data);
+                if (!data.status) {
+
+                    setFlights(data);
+                    setFlightsOriginal(data);
+                    setDurationList([...new Set(data.map(item => item.duration))]);
+                }
 
             });
     };
@@ -95,6 +130,8 @@ export default function FlightSearch() {
                 <Grid item xs={11} sm={3} md={3}>
                     <DateRangePicker
                         xs={12} sx={{flex: 1,}}
+                        // value={[dayjs(new Date()),dayjs(new Date())]}
+                        value={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
                         onChange={(newValue) => {
                             if (newValue[0] !== null) {
                                 setSelectedFilterValues({
@@ -183,16 +220,25 @@ export default function FlightSearch() {
                             <Select
                                 labelId="price"
                                 id="price-select"
-                                value={age}
+                                value={price}
 
                                 label="Price"
                                 onChange={(event) => {
-                                    setAge(event.target.value);
+
+                                    filterFlights(event.target.value, duration, airline);
+
+                                    setPrice(event.target.value);
                                 }}
+                                endAdornment={<IconButton sx={{display: price ? "" : "none"}}
+                                                          onClick={() => {
+
+                                                              filterFlights('', duration, airline);
+                                                              setPrice('');
+                                                          }}><ClearIcon/></IconButton>}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value={250}>$100 - $250</MenuItem>
+                                <MenuItem value={500}>$251 - $500</MenuItem>
+                                <MenuItem value={50000000000000000}>more than $500</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -203,15 +249,24 @@ export default function FlightSearch() {
                             <Select
                                 labelId="duration"
                                 id="duration-select"
-                                value={age}
+                                value={duration}
                                 label="Duration"
                                 onChange={(event) => {
-                                    setAge(event.target.value);
+                                    filterFlights(price, event.target.value, airline);
+                                    setDuration(event.target.value);
                                 }}
+                                endAdornment={<IconButton sx={{display: duration ? "" : "none"}}
+                                                          onClick={() => {
+                                                              filterFlights(price, '', airline);
+                                                              setDuration('');
+                                                          }}><ClearIcon/></IconButton>}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {durationList.length > 0 && durationList.map((item, idx) => {
+
+                                    return (<MenuItem
+                                        value={item}>{Math.floor(item / 60)} Hours {item % 60 !== 0 ? item % 60 + ' minutes' : null} </MenuItem>)
+                                })}
+
                             </Select>
                         </FormControl>
                     </Grid>
@@ -222,15 +277,23 @@ export default function FlightSearch() {
                             <Select
                                 labelId="airline"
                                 id="airline-select"
-                                value={age}
+                                value={airline}
                                 label="Airline"
                                 onChange={(event) => {
-                                    setAge(event.target.value);
+                                    filterFlights(price, duration, event.target.value);
+                                    setAirline(event.target.value);
                                 }}
+                                endAdornment={<IconButton sx={{display: airline ? "" : "none"}}
+                                                          onClick={() => {
+                                                              filterFlights(price, duration, '');
+                                                              setAirline('');
+                                                          }}><ClearIcon/></IconButton>}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {filterValues.airlines.length > 0 && filterValues.airlines.map((item, idx) => {
+
+                                    return (<MenuItem value={item}>{item}</MenuItem>)
+                                })}
+
                             </Select>
                         </FormControl>
                     </Grid>
@@ -239,7 +302,7 @@ export default function FlightSearch() {
 
             </Grid>
             {flights.length > 0 ? flights.map((item, idx) => {
-                return (<FlightDetail key={idx} item={item}/>);
+                return (<Grid sx={{mx: 5}}><FlightDetail key={idx} item={item}/></Grid>);
             }) : <Grid item xs={11} sm={3} md={1.5}>
 
                 <Typography

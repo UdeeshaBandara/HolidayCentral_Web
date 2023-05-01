@@ -16,21 +16,91 @@ import AddressForm from './AddressForm';
 import Review from './Review';
 import MainAppBar from "../../components/AppBar";
 import {useState} from "react";
+import {Alert, Snackbar} from "@mui/material";
+import {useCart} from "react-use-cart";
 
 
 const steps = ['Personal Details', 'Review your booking'];
-
 
 
 const theme = createTheme();
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
+    const [refNumber, setRefNumber] = useState(0);
     const [personalDetails, setPersonalDetails] = useState({firstName: '', lastName: '', email: "", phone: ''});
-
+    const [alertState, setAlertState] = useState({
+        vertical: 'top',
+        horizontal: 'center',
+        isOpen: false,
+        message: ''
+    });
+    const {vertical, horizontal, isOpen, message} = alertState;
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        updateItemQuantity,
+        removeItem,
+        cartTotal
+    } = useCart();
     const handleNext = () => {
-        console.log('personalDetails,',personalDetails)
-        setActiveStep(activeStep + 1);
+        console.log('personalDetails,', personalDetails)
+        if (activeStep === 0) {
+            validateUserInputs();
+        } else if (activeStep === steps.length - 1)
+            saveReservation();
+    };
+    const saveReservation = () => {
+        fetch("http://localhost:3001/flight/query", {
+            method: 'POST', body: JSON.stringify({
+                flight_id: 'selectedFilterValues.flight_id',
+                meal_type: 'selectedFilterValues.arrival',
+                cabin_type: 'selectedFilterValues.fromDate',
+                first_name: personalDetails.firstName,
+                last_name: personalDetails.lastName,
+                email: personalDetails.email,
+                phone: personalDetails.phone,
+                pax: 1,
+                price: cartTotal
+            }), headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+
+                if (data.status) setActiveStep(activeStep + 1);
+
+            });
+    };
+    const validateUserInputs = () => {
+        if (personalDetails.firstName === '' || personalDetails.firstName === null) {
+            setAlertState({
+                ...alertState,
+                message: 'Please enter first name',
+                isOpen: true
+            });
+        } else if (personalDetails.lastName === '' || personalDetails.lastName === null) {
+            setAlertState({
+                ...alertState,
+                message: 'Please enter last name',
+                isOpen: true
+            });
+        } else if (personalDetails.email === '' || personalDetails.email === null) {
+            setAlertState({
+                ...alertState,
+                message: 'Please enter email',
+                isOpen: true
+            });
+        } else if (personalDetails.phone === '' || personalDetails.phone === null) {
+            setAlertState({
+                ...alertState,
+                message: 'Please enter phone number',
+                isOpen: true
+            });
+        } else setActiveStep(activeStep + 1);
     };
 
     const handleBack = () => {
@@ -68,12 +138,10 @@ export default function Checkout() {
                     {activeStep === steps.length ? (
                         <React.Fragment>
                             <Typography variant="h5" gutterBottom>
-                                Thank you for your order.
+                                Thank you for your booking.
                             </Typography>
                             <Typography variant="subtitle1">
-                                Your order number is #2001539. We have emailed your order
-                                confirmation, and will send you an update when your order has
-                                shipped.
+                                Your reference number is #{refNumber}. Thank you for using the platform.
                             </Typography>
                         </React.Fragment>
                     ) : (
@@ -97,6 +165,15 @@ export default function Checkout() {
                         </React.Fragment>
                     )}
                 </Paper>
+                <Snackbar
+                    autoHideDuration={6000}
+                    anchorOrigin={{vertical, horizontal}}
+                    open={isOpen}
+                    onClose={() => setAlertState({...alertState, isOpen: false})}
+                    key={vertical + horizontal}
+                >
+                    <Alert severity="error">{message}</Alert>
+                </Snackbar>
 
             </Container>
         </ThemeProvider>
