@@ -27,7 +27,6 @@ const theme = createTheme();
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
-    const [refNumber, setRefNumber] = useState(0);
     const [personalDetails, setPersonalDetails] = useState({firstName: '', lastName: '', email: "", phone: ''});
     const [alertState, setAlertState] = useState({
         vertical: 'top',
@@ -37,43 +36,41 @@ export default function Checkout() {
     });
     const {vertical, horizontal, isOpen, message} = alertState;
     const {
-        isEmpty,
-        totalUniqueItems,
-        items,
-        updateItemQuantity,
-        removeItem,
-        cartTotal
+        items, emptyCart
     } = useCart();
     const handleNext = () => {
-        console.log('personalDetails,', personalDetails)
+
         if (activeStep === 0) {
             validateUserInputs();
-        } else if (activeStep === steps.length - 1)
-            saveReservation();
+        } else if (activeStep === steps.length - 1) {
+            items.forEach(async (item) => {
+                await saveReservation(item);
+            });
+            setActiveStep(activeStep + 1);
+            emptyCart();
+        }
+
     };
-    const saveReservation = () => {
-        fetch("http://localhost:3001/flight/query", {
+    const saveReservation = async (item) => {
+        let response = await fetch("http://localhost:3001/flight/book", {
             method: 'POST', body: JSON.stringify({
-                flight_id: 'selectedFilterValues.flight_id',
-                meal_type: 'selectedFilterValues.arrival',
-                cabin_type: 'selectedFilterValues.fromDate',
+                flight_id: item.id,
+                meal_type: item.meal,
+                cabin_type: item.cabin_type,
+                seat_type: item.seat,
                 first_name: personalDetails.firstName,
                 last_name: personalDetails.lastName,
                 email: personalDetails.email,
                 phone: personalDetails.phone,
-                pax: 1,
-                price: cartTotal
+                pax: item.quantity,
+                price: item.price
             }), headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
-        })
-            .then((response) => response.json())
-            .then((data) => {
+        });
+        let data = await response.json();
+        return data.status;
 
-
-                if (data.status) setActiveStep(activeStep + 1);
-
-            });
     };
     const validateUserInputs = () => {
         if (personalDetails.firstName === '' || personalDetails.firstName === null) {
@@ -141,7 +138,7 @@ export default function Checkout() {
                                 Thank you for your booking.
                             </Typography>
                             <Typography variant="subtitle1">
-                                Your reference number is #{refNumber}. Thank you for using the platform.
+                                Please check your email for more information. Thank you for using the platform.
                             </Typography>
                         </React.Fragment>
                     ) : (

@@ -25,11 +25,12 @@ import {CartProvider, useCart} from "react-use-cart";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import {useNavigate} from "react-router-dom";
 
-export default function FlightDetail({item, isCart = false}) {
+export default function FlightDetail({item, isCart = false, cabin_type=''}) {
     const {addItem, removeItem, totalUniqueItems} = useCart();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const [age, setAge] = useState('');
+    const [seat, setSeat] = useState('');
+    const [meal, setMeal] = useState('');
     const handleClickOpen = () => {
 
 
@@ -39,6 +40,9 @@ export default function FlightDetail({item, isCart = false}) {
     const handleSubmit = () => {
         setOpen(false);
         item.id = item._id;
+        item.meal = meal;
+        item.seat = seat;
+        item.cabin_type = cabin_type;
         addItem(item);
     };
     return (
@@ -196,30 +200,32 @@ export default function FlightDetail({item, isCart = false}) {
                                 <Select
                                     labelId="seat"
                                     id="seat-select"
-                                    value={age}
+                                    value={seat}
                                     label="Seat Type"
                                     onChange={(event) => {
-                                        setAge(event.target.value);
+                                        setSeat(event.target.value);
                                     }}
                                 >
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value='Basic Widow'>Basic Widow</MenuItem>
+                                    <MenuItem value='Isle'>Isle</MenuItem>
+                                    <MenuItem value='Middle'>middle</MenuItem>
                                 </Select>
                             </FormControl> <FormControl fullWidth>
-                            <InputLabel id="price">Meal</InputLabel>
+                            <InputLabel id="Meal">Meal</InputLabel>
                             <Select
                                 labelId="meal"
                                 id="meal-select"
-                                value={age}
+                                value={meal}
                                 label="Meal"
                                 onChange={(event) => {
-                                    setAge(event.target.value);
+                                    setMeal(event.target.value);
                                 }}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value='AVML'>AVML</MenuItem>
+                                <MenuItem value='BBML'>BBML</MenuItem>
+                                <MenuItem value='DBML'>DBML</MenuItem>
+                                <MenuItem value='HFML'>HFML</MenuItem>
+                                <MenuItem value='JPML'>JPML</MenuItem>
                             </Select>
                         </FormControl>
                         </Grid>

@@ -62,9 +62,6 @@ export default function Review({personalDetails}) {
                 </ListItem>
             </List>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-
-                </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom sx={{mt: 2}}>
                         Personal details

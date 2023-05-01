@@ -107,9 +107,12 @@ export default function FlightSearch() {
                         freeSolo
                         value={selectedFilterValues.departure}
                         xs={12}
-                        onChange={(event, value) => setSelectedFilterValues({
-                            ...selectedFilterValues, departure: value
-                        })}
+                        onChange={(event, value) => {
+                            if (value !== null)
+                                setSelectedFilterValues({
+                                    ...selectedFilterValues, departure: value
+                                })
+                        }}
                         options={filterValues.departures}
                         renderInput={(params) => <TextField {...params} label="Departure"/>}
                     />
@@ -121,17 +124,18 @@ export default function FlightSearch() {
                         sx={{flex: 1,}}
                         xs={12}
                         value={selectedFilterValues.arrival}
-                        onChange={(event, value) => setSelectedFilterValues({
-                            ...selectedFilterValues, arrival: value
-                        })}
+                        onChange={(event, value) => {
+                            if (value !== null)
+                                setSelectedFilterValues({
+                                    ...selectedFilterValues, arrival: value
+                                })
+                        }}
                         options={filterValues.arrivals}
                         renderInput={(params) => <TextField {...params} label="Arrival"/>}/>
                 </Grid>
                 <Grid item xs={11} sm={3} md={3}>
                     <DateRangePicker
                         xs={12} sx={{flex: 1,}}
-                        // value={[dayjs(new Date()),dayjs(new Date())]}
-                        value={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
                         onChange={(newValue) => {
                             if (newValue[0] !== null) {
                                 setSelectedFilterValues({
@@ -153,9 +157,12 @@ export default function FlightSearch() {
                         sx={{flex: 1,}}
                         xs={12}
                         value={selectedFilterValues.cabin}
-                        onChange={(event, value) => setSelectedFilterValues({
-                            ...selectedFilterValues, cabin: value
-                        })}
+                        onChange={(event, value) => {
+                            if (value !== null)
+                                setSelectedFilterValues({
+                                    ...selectedFilterValues, cabin: value
+                                })
+                        }}
                         options={filterValues.cabins}
                         renderInput={(params) => <TextField {...params} label="Cabin"/>}/>
                 </Grid>
@@ -167,9 +174,12 @@ export default function FlightSearch() {
                         xs={12}
                         sx={{flex: 1,}}
                         value={selectedFilterValues.airline}
-                        onChange={(event, value) => setSelectedFilterValues({
-                            ...selectedFilterValues, airline: value
-                        })}
+                        onChange={(event, value) => {
+                            if (value !== null)
+                                setSelectedFilterValues({
+                                    ...selectedFilterValues, airline: value
+                                })
+                        }}
                         options={filterValues.airlines}
                         renderInput={(params) => <TextField {...params}
                                                             label="Airline (Optional)"/>}/></Grid>
@@ -221,7 +231,6 @@ export default function FlightSearch() {
                                 labelId="price"
                                 id="price-select"
                                 value={price}
-
                                 label="Price"
                                 onChange={(event) => {
 
@@ -302,7 +311,7 @@ export default function FlightSearch() {
 
             </Grid>
             {flights.length > 0 ? flights.map((item, idx) => {
-                return (<Grid sx={{mx: 5}}><FlightDetail key={idx} item={item}/></Grid>);
+                return (<Grid sx={{mx: 5}}><FlightDetail key={idx} item={item} cabin_type={selectedFilterValues.cabin}/></Grid>);
             }) : <Grid item xs={11} sm={3} md={1.5}>
 
                 <Typography
