@@ -9,6 +9,8 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import FlightSearch from "./components/FlightSearch";
 import Checkout from "./screens/Checkout";
+import hotelcheckout from './screens/Hotel/HotelCheckout';
+import Hotelcheckouts from './screens/Hotel/HotelCheckout';
 
 function App() {
     return (
@@ -20,6 +22,7 @@ function App() {
                 <Route exact path='/flight-search' element={<FlightSearch/>}/>
                 <Route exact path='/flight-checkout' element={<Checkout/>}/>
                 <Route exact path='/hotel' element={<HotelIn/>}/>
+                <Route exact path='/hotelcheckout' element={<Hotelcheckouts/>}/>
             </Routes>
         </LocalizationProvider>
     );
