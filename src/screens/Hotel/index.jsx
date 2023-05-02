@@ -6,6 +6,8 @@ import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
 import TextField from "@mui/material/TextField";
 import {Alert} from '@mui/material'
 
+import Divider from '@mui/material/Divider';
+
 import './list.css';
 import Rating from '@mui/material/Rating';
 
@@ -242,17 +244,7 @@ export default function HotelIn() {
                         </Button>
                     </Grid>
                 </Grid>
-            </Grid>
-            <Snackbar
-                autoHideDuration={6000}
-                anchorOrigin={{vertical, horizontal}}
-                open={isOpen}
-                onClose={() => setAlertState({...alertState, isOpen: false})}
-                key={vertical + horizontal}
-            >
-                <Alert severity="error">{message}</Alert>
-            </Snackbar>
-            <Grid
+                <Grid
                container
                direction="row"
                justifyContent="center"
@@ -278,73 +270,39 @@ export default function HotelIn() {
         </ImageListItem>
       ))}
      </ImageList>
-    
-        </Grid>
-             <Grid container spacing={0.5}>
-            <Grid item xs>
-            <Paper
+     <Box sx={{ width: 1500, height: 1450, overflowY: 'scroll' }}>
+      <ImageList variant="masonry" cols={3} gap={8}>
+        {itemDatas.map((item) => (
+          <ImageListItem key={item.img}>
+            <img
+              src={`${item.img}?w=248&fit=crop&auto=format`}
+              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.title}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Box>
+     <Grid container spacing={2} columns={16}>
+         <Grid item xs={8}>
+         <Paper
               sx={{
               p: 2,
               margin: 'auto',
-              maxWidth: 500,
+              maxWidth: 550,
               flexGrow: 1,
               backgroundColor: (theme) =>
                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                }}
              >
-              <Grid container spacing={0.5}>
+              <Grid container spacing={9}>
                  <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src="/static/images/grid/complex.jpg" />
+                  <ButtonBase sx={{ width: 500, height: 300 }}>
+                  <Img alt="complex" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" width={1100} height={500}/>
                   </ButtonBase>
               </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                     <Grid item xs>
-                         <Typography gutterBottom variant="subtitle1" component="div">
-                             Comfort Suites Airport
-                         </Typography>
-                         <Typography variant="body2" gutterBottom>
-                         Austin
-                         </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                         Exceptional
-                         </Typography>
-                     </Grid>
-                  <Grid item>
-                  <Stack spacing={1}>
-      
-      <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-    </Stack>
-                  </Grid>
-               </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                    Starting from $140
-                    </Typography>
-                </Grid>
-                </Grid>
-             </Grid>
-             </Paper>
-            </Grid>
-            <Grid item xs={6}>
-            <Paper
-              sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-               }}
-             >
-              <Grid container spacing={0.5}>
-                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src="/static/images/grid/complex.jpg" />
-                  </ButtonBase>
-              </Grid>
-                <Grid item xs={12} sm container>
+                <Grid item xs={12} sm container >
                   <Grid item xs container direction="column" spacing={2}>
                      <Grid item xs>
                          <Typography gutterBottom variant="subtitle1" component="div">
@@ -360,8 +318,8 @@ export default function HotelIn() {
                   <Grid item>
                   <Stack spacing={1}>
       
-      <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-    </Stack>
+                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                  </Stack>
                   </Grid>
                </Grid>
                 <Grid item>
@@ -372,248 +330,219 @@ export default function HotelIn() {
                 </Grid>
              </Grid>
              </Paper>
-            </Grid>
-            <Grid item xs>
-            <Paper
-              sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-               }}
-             >
-              <Grid container spacing={0.5}>
-                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src="/static/images/grid/complex.jpg" />
-                  </ButtonBase>
-              </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                     <Grid item xs>
-                         <Typography gutterBottom variant="subtitle1" component="div">
-                             Standard license
-                         </Typography>
-                         <Typography variant="body2" gutterBottom>
-                             Full resolution 1920x1080 • JPEG
-                         </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             ID: 1030114
-                         </Typography>
-                     </Grid>
-                  <Grid item>
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                              Remove
-                      </Typography>
-                  </Grid>
-               </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                    $19.00
-                    </Typography>
-                </Grid>
-                </Grid>
-             </Grid>
-             </Paper>
-            </Grid>
-            </Grid>
-            
-            <Grid container spacing={0.5}>
-            <Grid item xs>
-            <Paper
-              sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-               }}
-             >
-              <Grid container spacing={0.5}>
-                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src="/static/images/grid/complex.jpg" />
-                  </ButtonBase>
-              </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                     <Grid item xs>
-                         <Typography gutterBottom variant="subtitle1" component="div">
-                             Standard license
-                         </Typography>
-                         <Typography variant="body2" gutterBottom>
-                             Full resolution 1920x1080 • JPEG
-                         </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             ID: 1030114
-                         </Typography>
-                     </Grid>
-                  <Grid item>
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                              Remove
-                      </Typography>
-                  </Grid>
-               </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                    $19.00
-                    </Typography>
-                </Grid>
-                </Grid>
-             </Grid>
-             </Paper>
-            </Grid>
-            <Grid item xs={6}>
-            <Paper
-              sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-               }}
-             >
-              <Grid container spacing={0.5}>
-                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src="./src/Assets/Images/g1.jpg" />
-                  </ButtonBase>
-              </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                     <Grid item xs>
-                         <Typography gutterBottom variant="subtitle1" component="div">
-                             Standard license
-                         </Typography>
-                         <Typography variant="body2" gutterBottom>
-                             Full resolution 1920x1080 • JPEG
-                         </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             ID: 1030114
-                         </Typography>
-                     </Grid>
-                  <Grid item>
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                              Remove
-                      </Typography>
-                  </Grid>
-               </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                    $19.00
-                    </Typography>
-                </Grid>
-                </Grid>
-             </Grid>
-             </Paper>
-            </Grid>
-            <Grid item xs>
-            <Paper
-              sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-               }}
-             >
-              <Grid container spacing={0.5}>
-                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" Image src="hotel.webp" />
-                  </ButtonBase>
-              </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                     <Grid item xs>
-                         <Typography gutterBottom variant="subtitle1" component="div">
-                             Standard license
-                         </Typography>
-                         <Typography variant="body2" gutterBottom>
-                             Full resolution 1920x1080 • JPEG
-                         </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             ID: 1030114
-                         </Typography>
-                     </Grid>
-                  <Grid item>
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                              Remove
-                      </Typography>
-                  </Grid>
-               </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                    $19.00
-                    </Typography>
-                </Grid>
-                </Grid>
-             </Grid>
-             </Paper>
-            </Grid>
-            </Grid>
+           
+         </Grid>
           
-        <Box sx={{ width: '100%', borderRadius : 100}} >
-            
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}  columns={16} >
-        
-        <Grid item xs={3}>
-          <Item><ul className="fList">
+          <Grid item xs={8}>
+          <Paper
+              sx={{
+              p: 2,
+              margin: 'auto',
+              maxWidth: 550,
+              flexGrow: 1,
+              backgroundColor: (theme) =>
+               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+               }}
+             >
+              <Grid container spacing={9}>
+                 <Grid item>
+                  <ButtonBase sx={{ width: 500, height: 300 }}>
+                  <Img alt="complex" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" width={1100} height={500}/>
+                  </ButtonBase>
+              </Grid>
+                <Grid item xs={12} sm container >
+                  <Grid item xs container direction="column" spacing={2}>
+                     <Grid item xs>
+                         <Typography gutterBottom variant="subtitle1" component="div">
+                         Four Seasons Hotel
+                         </Typography>
+                         <Typography variant="body2" gutterBottom>
+                         Lisbon
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary">
+                             Exceptional
+                         </Typography>
+                     </Grid>
+                  <Grid item>
+                  <Stack spacing={1}>
+      
+                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                  </Stack>
+                  </Grid>
+               </Grid>
+                <Grid item>
+                    <Typography variant="subtitle1" component="div">
+                    Starting from $99
+                    </Typography>
+                </Grid>
+                </Grid>
+             </Grid>
+             </Paper>
+           
+         </Grid>
+         <Grid item xs={8}>
+          <Paper
+              sx={{
+              p: 2,
+              margin: 'auto',
+              maxWidth: 550,
+              flexGrow: 1,
+              backgroundColor: (theme) =>
+               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+               }}
+             >
+              <Grid container spacing={9}>
+                 <Grid item>
+                  <ButtonBase sx={{ width: 500, height: 300 }}>
+                  <Img alt="complex" src="https://images.unsplash.com/photo-1657349226767-66c983d7df39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" width={1100} height={500}/>
+                  </ButtonBase>
+              </Grid>
+                <Grid item xs={12} sm container >
+                  <Grid item xs container direction="column" spacing={2}>
+                     <Grid item xs>
+                         <Typography gutterBottom variant="subtitle1" component="div">
+                         Four Seasons Hotel
+                         </Typography>
+                         <Typography variant="body2" gutterBottom>
+                         Lisbon
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary">
+                             Exceptional
+                         </Typography>
+                     </Grid>
+                  <Grid item>
+                  <Stack spacing={1}>
+      
+                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                  </Stack>
+                  </Grid>
+               </Grid>
+                <Grid item>
+                    <Typography variant="subtitle1" component="div">
+                    Starting from $99
+                    </Typography>
+                </Grid>
+                </Grid>
+             </Grid>
+             </Paper>
+           
+         </Grid>
+         <Grid item xs={8}>
+          <Paper
+              sx={{
+              p: 2,
+              margin: 'auto',
+              maxWidth: 550,
+              flexGrow: 1,
+              backgroundColor: (theme) =>
+               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+               }}
+             >
+              <Grid container spacing={9}>
+                 <Grid item>
+                  <ButtonBase sx={{ width: 500, height: 300 }}>
+                  <Img alt="complex" src="https://images.unsplash.com/photo-1543968332-f99478b1ebdc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" width={1100} height={500}/>
+                  </ButtonBase>
+              </Grid>
+                <Grid item xs={12} sm container >
+                  <Grid item xs container direction="column" spacing={2}>
+                     <Grid item xs>
+                         <Typography gutterBottom variant="subtitle1" component="div">
+                         Four Seasons Hotel
+                         </Typography>
+                         <Typography variant="body2" gutterBottom>
+                         Lisbon
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary">
+                             Exceptional
+                         </Typography>
+                     </Grid>
+                  <Grid item>
+                  <Stack spacing={1}>
+      
+                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                  </Stack>
+                  </Grid>
+               </Grid>
+                <Grid item>
+                    <Typography variant="subtitle1" component="div">
+                    Starting from $99
+                    </Typography>
+                </Grid>
+                </Grid>
+             </Grid>
+             </Paper>
+           
+         </Grid>
+
+         </Grid>
+     </Grid>
+     <Divider variant="middle" />
+     <Grid><Paper
+              sx={{
+              p: 2,
+              margin: 'auto',
+              maxWidth: 1550,
+              flexGrow: 1,
+              backgroundColor: (theme) =>
+               theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+               }}
+             ></Paper></Grid>       
+     <Grid container spacing={2} columns={30}>
+         <Grid item xs={6}>
+           <Item>
           <ul>Countries</ul>
-          <ul >Regions</ul>
+          
           <ul >Cities</ul>
-          <ul >Districts</ul>
           <ul >Airports</ul>
-          <ul >Hotels</ul>
-        </ul></Item>
-        </Grid>
-        <Grid item xs={3}>
-          <Item><ul className="fList">
-          <ul>Homes</ul>
-          <ul >Apartments</ul>
+          <ul >Hotels</ul></Item>
+         </Grid>
+         <Grid item xs={6}>
+            <Item>
+          
           <ul >Resorts</ul>
           <ul >Villas</ul>
           <ul >Hostels</ul>
-          <ul >Guest houses</ul>
-        </ul>
-        </Item>
-        </Grid>
-        <Grid item xs={3} >
-          <Item><ul className="fList">
-          <ul>Unique places to stay</ul>
+          <ul >Guest houses</ul></Item>
+         </Grid>
+         <Grid item xs={6}>
+            <Item><ul>Unique places to stay</ul>
           <ul >Reviews</ul>
-          <ul >Unpacked: Travel articles</ul>
-          <ul >Travel communities</ul>
-          <ul >Seasonal and holiday deals</ul>
           
-        </ul></Item>
-        </Grid>
-        <Grid item xs={3}>
-          <Item><ul className="fList">
-          <ul>Car rental</ul>
+          <ul >Travel communities</ul>
+          <ul >Seasonal and holiday deals</ul></Item>
+         </Grid>
+         <Grid item xs={6}>
+            <Item><ul>Car rental</ul>
           <ul >Flight Finder</ul>
           <ul >Restaurant reservations</ul>
-          <ul >Travel Agents</ul>
-        
-        </ul></Item>
-        </Grid>
-        <Grid item xs={3}>
-          <Item><ul className="fList">
-          <ul>Curtomer Service</ul>
+          <ul >Travel Agents</ul></Item>
+         </Grid>
+         <Grid item xs={6}>
+            <Item><ul>Curtomer Service</ul>
           <ul >Partner Help</ul>
-          <ul >Careers</ul>
+          
           <ul >Sustainability</ul>
-          <ul >Press center</ul>
-          <ul >Terms & conditions</ul>
-        </ul></Item>
-        </Grid>
-      </Grid>
-    </Box>
+          
+          <ul >Terms & conditions</ul></Item>
+         </Grid>
+         
+     </Grid>     
+    
+    <Grid>
+       
+    </Grid>
+            </Grid>
+            <Snackbar
+                autoHideDuration={6000}
+                anchorOrigin={{vertical, horizontal}}
+                open={isOpen}
+                onClose={() => setAlertState({...alertState, isOpen: false})}
+                key={vertical + horizontal}
+            >
+                <Alert severity="error">{message}</Alert>
+            </Snackbar>
+           
                  
             
 
@@ -635,12 +564,12 @@ const itemData = [
       featured: true,
     },
     {
-      img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+      img: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       title: 'Burger',
       author: '@rollelflex_graphy726',
     },
     {
-      img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+      img: 'https://images.unsplash.com/photo-1532581140115-3e355d1ed1de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       title: 'Camera',
       author: '@helloimnik',
     },
@@ -682,12 +611,12 @@ const itemData = [
       cols: 2,
     },
     {
-      img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
+      img: 'https://images.unsplash.com/photos-eLgKkKAnA4g',
       title: 'Tomato basil',
       author: '@shelleypauls',
     },
     {
-      img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+      img: 'src/Assets/lamb.jpg',
       title: 'Sea star',
       author: '@peterlaster',
     },
@@ -696,5 +625,56 @@ const itemData = [
       title: 'Bike',
       author: '@southside_customs',
       cols: 2,
+    },
+  ];
+
+  const itemDatas = [
+    {
+      img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
+      title: 'Bed',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
+      title: 'Books',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
+      title: 'Sink',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
+      title: 'Kitchen',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
+      title: 'Blinds',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
+      title: 'Chairs',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
+      title: 'Laptop',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
+      title: 'Doors',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
+      title: 'Coffee',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
+      title: 'Storage',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
+      title: 'Candle',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
+      title: 'Coffee table',
     },
   ];

@@ -83,8 +83,14 @@
   }
 
   .fLists{
+    align-content: space-around;
     width: 100%;
+    
     display: flex;
+    align-content: center;
+    background-color: #febb02;
     justify-content: space-between;
     margin-bottom: 50px;
   }
+
+  
