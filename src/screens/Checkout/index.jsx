@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useState} from "react";
+import { useState } from "react";
 import env from "react-dotenv";
 
-import {Alert, Snackbar} from "@mui/material";
-import {useCart} from "react-use-cart";
+import { Alert, Snackbar } from "@mui/material";
+import { useCart } from "react-use-cart";
 import CssBaseline from '@mui/material/CssBaseline';
 
 import AddressForm from './AddressForm';
@@ -20,7 +20,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 
 
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const steps = ['Personal Details', 'Review your booking'];
@@ -30,14 +30,14 @@ const theme = createTheme();
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
-    const [personalDetails, setPersonalDetails] = useState({firstName: '', lastName: '', email: "", phone: ''});
+    const [personalDetails, setPersonalDetails] = useState({ firstName: '', lastName: '', email: "", phone: '' });
     const [alertState, setAlertState] = useState({
         vertical: 'top',
         horizontal: 'center',
         isOpen: false,
         message: ''
     });
-    const {vertical, horizontal, isOpen, message} = alertState;
+    const { vertical, horizontal, isOpen, message } = alertState;
     const {
         items, emptyCart
     } = useCart();
@@ -110,7 +110,7 @@ export default function Checkout() {
         switch (step) {
             case 0:
                 return <AddressForm personalDetails={personalDetails}
-                                    setPersonalDetails={setPersonalDetails}></AddressForm>;
+                    setPersonalDetails={setPersonalDetails}></AddressForm>;
             case 1:
                 return <Review personalDetails={personalDetails}></Review>;
             default:
@@ -121,14 +121,14 @@ export default function Checkout() {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline/>
-            <MainAppBar/>
-            <Container component="main" maxWidth="sm" sx={{mb: 4, pt: 10}}>
-                <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
+            <CssBaseline />
+            <MainAppBar />
+            <Container component="main" maxWidth="sm" sx={{ mb: 4, pt: 10 }}>
+                <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
                         Checkout
                     </Typography>
-                    <Stepper activeStep={activeStep} sx={{pt: 3, pb: 5}}>
+                    <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                         {steps.map((label) => (
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>
@@ -147,9 +147,9 @@ export default function Checkout() {
                     ) : (
                         <React.Fragment>
                             {getStepContent(activeStep)}
-                            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 {activeStep !== 0 && (
-                                    <Button onClick={handleBack} sx={{mt: 3, ml: 1}}>
+                                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                                         Back
                                     </Button>
                                 )}
@@ -157,7 +157,7 @@ export default function Checkout() {
                                 <Button
                                     variant="contained"
                                     onClick={handleNext}
-                                    sx={{mt: 3, ml: 1}}
+                                    sx={{ mt: 3, ml: 1 }}
                                 >
                                     {activeStep === steps.length - 1 ? 'Confirm & Pay' : 'Next'}
                                 </Button>
@@ -167,9 +167,9 @@ export default function Checkout() {
                 </Paper>
                 <Snackbar
                     autoHideDuration={6000}
-                    anchorOrigin={{vertical, horizontal}}
+                    anchorOrigin={{ vertical, horizontal }}
                     open={isOpen}
-                    onClose={() => setAlertState({...alertState, isOpen: false})}
+                    onClose={() => setAlertState({ ...alertState, isOpen: false })}
                     key={vertical + horizontal}
                 >
                     <Alert severity="error">{message}</Alert>

@@ -3,7 +3,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-export default function AddressForm({personalDetails, setPersonalDetails}) {
+export default function AddressForm({ personalDetails, setPersonalDetails }) {
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -19,9 +19,7 @@ export default function AddressForm({personalDetails, setPersonalDetails}) {
                         fullWidth
                         autoComplete="given-name"
                         variant="standard"
-                        onChange={(event) => setPersonalDetails({...personalDetails, firstName: event.target.value})}
-
-
+                        onChange={(event) => setPersonalDetails({ ...personalDetails, firstName: event.target.value })}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -33,8 +31,7 @@ export default function AddressForm({personalDetails, setPersonalDetails}) {
                         fullWidth
                         autoComplete="family-name"
                         variant="standard"
-                        onChange={(event) => setPersonalDetails({...personalDetails, lastName: event.target.value})}
-
+                        onChange={(event) => setPersonalDetails({ ...personalDetails, lastName: event.target.value })}
                     />
                 </Grid>
 
@@ -47,8 +44,7 @@ export default function AddressForm({personalDetails, setPersonalDetails}) {
                         fullWidth
                         autoComplete="shipping address-level2"
                         variant="standard"
-                        onChange={(event) => setPersonalDetails({...personalDetails, email: event.target.value})}
-
+                        onChange={(event) => setPersonalDetails({ ...personalDetails, email: event.target.value })}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -59,8 +55,7 @@ export default function AddressForm({personalDetails, setPersonalDetails}) {
                         fullWidth
                         type='number'
                         variant="standard"
-
-                        onChange={(event) => setPersonalDetails({...personalDetails, phone: event.target.value})}
+                        onChange={(event) => setPersonalDetails({ ...personalDetails, phone: event.target.value })}
                     />
                 </Grid>
             </Grid>

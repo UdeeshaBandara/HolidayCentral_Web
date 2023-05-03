@@ -37,18 +37,6 @@ export const Colors = {
   primaryYellow: '#FFF79A',
   yellow: '#F2C94C',
   primaryRed: '#D41F3A',
-  lightPink: '#FDA4D5',
-  lightPurple: '#884D9D',
-  primaryRedGradient: 'linear-gradient(90deg, #FE5057 0%, #F39734 108.87%)',
-  primaryGreenGradient: ['#17CEA0', '#44F0C6'],
-  primaryPurpleGradient: 'linear-gradient(90deg, #6F51FF 0%, #8B74FE 100%)',
-  primaryPurpleGradient2: 'linear-gradient(180deg, #6B4CFF 0%, #7C67DE 100%)',
-  primaryPurpleGradient3: ['#6F51FF', '#8B74FE'],
-  blackGradient: 'linear-gradient(90deg, #1C1B20 0%, #A2A1A7 100%)',
-  primaryPinkGradient: 'linear-gradient(90deg, #FE56ED 1.41%, #FF91F4 100.13%)',
-  whiteTransparent: 'rgba(232, 232, 232, 0.67)',
-  inputFieldBorderColor: '#EFEFEF',
-  calculatorKeyBackground: '#FAFAFA',
 };
 
 export const NavigationColors = {
