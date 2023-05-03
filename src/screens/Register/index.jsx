@@ -14,16 +14,30 @@ import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import env from "react-dotenv";
+import {useNavigate} from "react-router-dom";
+import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
 const theme = createTheme();
 
 export default function Register() {
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        fetch(`${env.BASE_URL}user/register`,{
+            method: 'POST', body: JSON.stringify({
+                username: data.get('email'),
+                password: data.get('password'),
+                userType: '1'
+            }), headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                navigate('/login',{replace:true});
+            });
     };
 
     return (
@@ -38,9 +52,7 @@ export default function Register() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <MainLogo/>
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
@@ -88,12 +100,7 @@ export default function Register() {
                                     autoComplete="new-password"
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid>
+
                         </Grid>
                         <Button
                             type="submit"

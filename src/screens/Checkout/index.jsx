@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useToken from "../../hooks/useToken";
 
 
 const steps = ['Personal Details', 'Review your booking'];
@@ -29,6 +30,8 @@ const steps = ['Personal Details', 'Review your booking'];
 const theme = createTheme();
 
 export default function Checkout() {
+    const {token} = useToken();
+
     const [activeStep, setActiveStep] = useState(0);
     const [personalDetails, setPersonalDetails] = useState({ firstName: '', lastName: '', email: "", phone: '' });
     const [alertState, setAlertState] = useState({
@@ -69,6 +72,7 @@ export default function Checkout() {
                 price: item.price
             }), headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': token,
             },
         });
         let data = await response.json();
