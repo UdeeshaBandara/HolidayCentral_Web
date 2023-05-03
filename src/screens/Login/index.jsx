@@ -5,8 +5,6 @@ import useToken from "../../hooks/useToken";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -17,6 +15,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
 import env from "react-dotenv";
+import LoginCover from "../../Assets/SVGIcons/LoginCover";
 
 const theme = createTheme();
 
@@ -27,7 +26,7 @@ export default function Login() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        fetch(`${env.BASE_URL}user/login`,{
+        fetch(`${env.BASE_URL}user/login`, {
             method: 'POST', body: JSON.stringify({
                 username: data.get('email'),
                 password: data.get('password')
@@ -39,7 +38,7 @@ export default function Login() {
             .then((data) => {
                 setToken(`Bearer ${data.access_token}`);
 
-                navigate('/',{replace:true});
+                navigate('/', {replace: true});
             });
     };
 
@@ -53,14 +52,16 @@ export default function Login() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random)',
                         backgroundRepeat: 'no-repeat',
+                        alignSelf: 'center',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
-                />
+                >
+                    <LoginCover xs={false}/>
+                </Grid>
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{

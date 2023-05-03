@@ -15,8 +15,7 @@ import Hotelcheckouts from './screens/Hotel/HotelCheckout';
 import QuantityEdit from './screens/Hotel/Hotelcart';
 import SearchItem from './screens/Hotel/SearchItem';
 import List from  './screens/Hotel/List';
-
-
+import {ProtectedRoute} from "./components/ProtectedRoute";
 
 function App() {
 
