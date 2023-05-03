@@ -8,7 +8,7 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import FlightSearch from "./screens/FlightSearch";
 import Checkout from "./screens/Checkout";
-import {ProtectedRoute} from "./components/ProtectedRoute/index,jsx";
+import {ProtectedRoute} from "./components/ProtectedRoute";
 
 function App() {
 

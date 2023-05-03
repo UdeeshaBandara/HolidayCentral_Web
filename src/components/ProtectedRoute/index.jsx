@@ -3,7 +3,7 @@ import useToken from "../../hooks/useToken";
 
 export const ProtectedRoute = ({children}) => {
     const {token} = useToken();
-    if (token === null) {
+    if (token === null || token === '') {
         return <Navigate to="/login" replace/>;
     }
     return children;

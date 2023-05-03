@@ -19,17 +19,22 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import { Colors } from "../../Theme/Variables";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 
 const pages = ['Flights', 'Hotel', 'Packages'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 function MainAppBar() {
     const {
         isEmpty
     } = useCart();
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const {setToken} = useToken();
+    const navigate = useNavigate();
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -42,7 +47,12 @@ function MainAppBar() {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (text) => {
+        if(text==='Logout') {
+            setToken('');
+            navigate('/login');
+
+        }
         setAnchorElUser(null);
     };
 
@@ -160,7 +170,7 @@ function MainAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
