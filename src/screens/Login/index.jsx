@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useNavigate} from "react-router-dom";
+import env from "react-dotenv";
 
 import useToken from "../../hooks/useToken";
 
@@ -7,15 +8,16 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import LoginCover from "../../Assets/SVGIcons/LoginCover";
+import MainLogo from "../../Assets/SVGIcons/MainLogo";
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
-import env from "react-dotenv";
-import LoginCover from "../../Assets/SVGIcons/LoginCover";
+import {Alert, Snackbar} from "@mui/material";
+import {useState} from "react";
 
 const theme = createTheme();
 
@@ -23,6 +25,13 @@ export default function Login() {
     const navigate = useNavigate();
 
     const {setToken} = useToken();
+    const [alertState, setAlertState] = useState({
+        vertical: 'top',
+        horizontal: 'center',
+        isOpen: false,
+        message: ''
+    });
+    const {vertical, horizontal, isOpen, message} = alertState;
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -42,7 +51,7 @@ export default function Login() {
                     setToken(`Bearer ${data.access_token}`);
                     navigate('/', {replace: true});
                 }else{
-
+                    setAlertState({...alertState, message: 'Invalid credentials', isOpen: true});
                 }
             });
     };
@@ -123,6 +132,15 @@ export default function Login() {
                         </Box>
                     </Box>
                 </Grid>
+                <Snackbar
+                    autoHideDuration={6000}
+                    anchorOrigin={{vertical, horizontal}}
+                    open={isOpen}
+                    onClose={() => setAlertState({...alertState, isOpen: false})}
+                    key={vertical + horizontal}
+                >
+                    <Alert severity="error">{message}</Alert>
+                </Snackbar>
             </Grid>
         </ThemeProvider>
     );

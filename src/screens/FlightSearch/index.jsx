@@ -86,7 +86,8 @@ export default function FlightSearch() {
 
                     setFlights(data.data);
                     setFlightsOriginal(data.data);
-                    setDurationList([...new Set(data.map(item => item.duration))]);
+                    setDurationList([...new Set(data.data.map(item => item.duration))]);
+                    console.log('data.data',data.data)
                 } else {
                     setFlights([]);
                     setFlightsOriginal([]);
@@ -278,7 +279,7 @@ export default function FlightSearch() {
                                 {durationList.length > 0 && durationList.map((item, idx) => {
 
                                     return (<MenuItem
-                                        value={item}>{Math.floor(item / 60)} Hours {item % 60 !== 0 ? item % 60 + ' minutes' : null} </MenuItem>)
+                                        value={item} key={idx}>{Math.floor(item / 60)} Hours {item % 60 !== 0 ? item % 60 + ' minutes' : null} </MenuItem>)
                                 })}
 
                             </Select>

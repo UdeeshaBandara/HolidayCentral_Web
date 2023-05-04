@@ -1,22 +1,33 @@
 import * as React from 'react';
+import env from "react-dotenv";
+import {useNavigate} from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import MainLogo from "../../Assets/SVGIcons/MainLogo";
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import env from "react-dotenv";
-import {useNavigate} from "react-router-dom";
-import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
+import {Alert, Snackbar} from "@mui/material";
+import {useState} from "react";
+
 const theme = createTheme();
 
 export default function Register() {
     const navigate = useNavigate();
+
+    const [alertState, setAlertState] = useState({
+        vertical: 'top',
+        horizontal: 'center',
+        isOpen: false,
+        message: ''
+    });
+    const {vertical, horizontal, isOpen, message} = alertState;
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -31,8 +42,8 @@ export default function Register() {
         })
             .then((response) => response.json())
             .then((data) => {
-
-                navigate('/login',{replace:true});
+                setAlertState({...alertState, message: 'Registration successful', isOpen: true});
+                navigate('/login', {replace: true});
             });
     };
 
@@ -80,7 +91,7 @@ export default function Register() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="User name"
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -116,6 +127,15 @@ export default function Register() {
                         </Grid>
                     </Box>
                 </Box>
+                <Snackbar
+                    autoHideDuration={6000}
+                    anchorOrigin={{vertical, horizontal}}
+                    open={isOpen}
+                    onClose={() => setAlertState({...alertState, isOpen: false})}
+                    key={vertical + horizontal}
+                >
+                    <Alert severity="success">{message}</Alert>
+                </Snackbar>
             </Container>
         </ThemeProvider>
     );

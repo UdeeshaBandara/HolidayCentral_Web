@@ -19,7 +19,7 @@ export default function Home() {
     const navigate = useNavigate();
     const {token} = useToken();
 
-    const [alertState, setAlertState] = React.useState({
+    const [alertState, setAlertState] = useState({
         vertical: 'top',
         horizontal: 'center',
         isOpen: false,
@@ -214,7 +214,6 @@ export default function Home() {
                             mt: 5,
                             alignItems: 'center',
                             justifyContent: 'center',
-
                             borderRadius: 50,
                             border: 3,
                             fontSize: 20, fontWeight: 'medium'
