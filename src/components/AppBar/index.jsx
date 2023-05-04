@@ -46,6 +46,8 @@ function MainAppBar() {
             navigate('/hotel');
         else if(text === 'Flights')
             navigate('/');
+        else if (text === 'Packages')
+            navigate('/package')
         setAnchorElNav(null);
     };
 
