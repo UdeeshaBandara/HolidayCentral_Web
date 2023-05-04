@@ -60,7 +60,7 @@ export default function FlightDetail({ item, isCart = false, cabin_type = '' }) 
                 sx={{
                     width: 50, height: 50,
                 }}
-                src={item.airlineImage}
+                src={item.airlineImage || "https://i.ibb.co/CwpZYrm/travel-icon.webp"}
             />
 
             <Box sx={{

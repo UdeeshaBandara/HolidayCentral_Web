@@ -16,8 +16,10 @@ export default function PackageDetail({item, isCart = false}) {
 
     const handleSubmit = () => {
         item.id = item.package_id;
+        item.price = item.package_price;
         addItem(item);
     };
+
     return (
         <Box sx={{
             display: 'flex',
@@ -49,14 +51,14 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    {item.flightNo}
+                    {item.package_travelers_count}
                 </Typography>
                 <Typography
                     variant="body2"
                     align="center"
                     color={Colors.gray002}
-                >          {item.airline}
-
+                >
+                    Travelers Count
                 </Typography>
 
             </Box>
@@ -70,7 +72,7 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    {item.price} Hawaii
+                    {item.package_destination}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -92,7 +94,7 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    {item.price} 3 Days
+                    {item.package_duration} Days
                 </Typography>
                 <Typography
                     variant="body2"
@@ -113,9 +115,7 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    Holiday
-                    Summer,
-                    Weekend
+                    {item.package_speciality.join(', ')}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -136,7 +136,7 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    ⭐️ 4.5
+                    ⭐️ {item.package_rating}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -157,7 +157,7 @@ export default function PackageDetail({item, isCart = false}) {
                     align="center"
                     color="grey.700"
                 >
-                    $ 1000
+                    $ {item.package_price}
                 </Typography>
                 <Typography
                     variant="body2"

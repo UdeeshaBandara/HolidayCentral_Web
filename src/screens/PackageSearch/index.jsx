@@ -65,7 +65,7 @@ export default function PackageSearch() {
         fetch(`${env.BASE_URL}packages/search`, {
             method: 'POST', body: JSON.stringify({
                 package_destination: selectedFilterValues.destination,
-                package_duration_max: selectedFilterValues.duration,
+                package_duration_min: selectedFilterValues.duration,
                 package_travelers_count: selectedFilterValues.traveler_count,
                 package_speciality: [selectedFilterValues.speciality]
             }), headers: {
@@ -197,11 +197,11 @@ export default function PackageSearch() {
                                                           onClick={() => {
                                                               filterPackages('', rating);
                                                               setPrice('');
-                                                          }}><ClearIcon/></IconButton>}>
+                                                          }}><ClearIcon/></IconButton>}
+                            >
                                 <MenuItem value={1000}>$500 - $999</MenuItem>
                                 <MenuItem value={2500}>$1000 - $2499</MenuItem>
                                 <MenuItem value={50000000000000000}>more than $2500</MenuItem>
-
                             </Select>
                         </FormControl>
                     </Grid>
@@ -223,12 +223,17 @@ export default function PackageSearch() {
                                                               setRating('');
                                                           }}><ClearIcon/></IconButton>}
                             >
+                                {ratingList.length > 0 && ratingList.map((item, idx) => {
+                                    return (<MenuItem
+                                        value={item} key={idx}>{item} </MenuItem>)
+                                })}
                             </Select>
                         </FormControl>
                     </Grid>
                 </Grid>
             </Grid>
             {packages.length > 0 ? packages.map((item, idx) => {
+                    console.log(packages)
                     return (
                         <Grid sx={{mx: 5}} key={idx}>
                             <PackageDetail item={item}/>
