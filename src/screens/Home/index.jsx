@@ -59,6 +59,7 @@ export default function Home() {
     return (
         <Grid>
             <MainAppBar/>
+
             <Grid container direction="column" alignItems="center" component="main" sx={{
                 width: '100%',
                 overflowY: "scroll",
@@ -69,7 +70,7 @@ export default function Home() {
                           width: '100%',
                           position: "relative",
                           overflowY: "scroll",
-
+                          pt:10,
                       }}
                 >
                     <Map/>
@@ -189,11 +190,7 @@ export default function Home() {
                             height: 30
                         }}/>} onClick={() => {
                             if (selectedFilterValues.departure === '') {
-                                setAlertState({
-                                    ...alertState,
-                                    message: 'Please select departure location',
-                                    isOpen: true
-                                });
+                                setAlertState({...alertState, message: 'Please select departure location', isOpen: true});
                             } else if (selectedFilterValues.arrival === '') {
                                 setAlertState({...alertState, message: 'Please select arrival location', isOpen: true});
                             } else if (selectedFilterValues.fromDate === '') {
