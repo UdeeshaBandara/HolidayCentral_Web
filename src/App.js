@@ -9,8 +9,6 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import FlightSearch from "./screens/FlightSearch";
 import Checkout from "./screens/Checkout";
-import {ProtectedRoute} from "./components/ProtectedRoute/index,jsx";
-import hotelcheckout from './screens/Hotel/HotelCheckout';
 import Hotelcheckouts from './screens/Hotel/HotelCheckout';
 import QuantityEdit from './screens/Hotel/Hotelcart';
 import SearchItem from './screens/Hotel/SearchItem';

@@ -49,6 +49,7 @@ import Select from '@mui/material/Select';
 
 import {createTheme} from '@mui/material/styles';
 import List from './List';
+import Hotel from "../../Assets/SVGIcons/Hotel";
 
 
 
@@ -58,7 +59,7 @@ const Img = styled('img')({
     maxWidth: '100%',
     maxHeight: '100%',
 });
-  
+
 const theme = createTheme();
 export default function HotelIn() {
 
@@ -83,7 +84,7 @@ export default function HotelIn() {
       setoption3(event.target.value);
     };
 
-  
+
     const [alertState, setAlertState] = React.useState({
         vertical: 'top',
         horizontal: 'center',
@@ -103,7 +104,7 @@ export default function HotelIn() {
 
     });
 
-    
+
     useEffect(() => {
         getFilterValues();
     }, []);
@@ -119,16 +120,16 @@ export default function HotelIn() {
             });
     };
 
-    
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        
+
       }));
-    
+
     return (
         <Grid>
             <MainAppBar/>
@@ -146,7 +147,7 @@ export default function HotelIn() {
                       }}
                 >
 
-                    <Map/>
+                    <Hotel/>
 
                     <Grid container direction="column" alignItems="center"
                           sx={{
@@ -184,7 +185,7 @@ export default function HotelIn() {
                                   gap: 2
                               }}
                         >
-                            
+
                             <Grid item xs={12} sm={3} md={2}>
                                   <Autocomplete
                                     id="arrival"
@@ -198,7 +199,7 @@ export default function HotelIn() {
                                     options={filterValues.arrivals}
                                     renderInput={(params) => <TextField {...params} label="Where are you planing to travel"/>}/>
                             </Grid>
-                            
+
                             <Grid item xs={12} sm={3} md={2}>
                                 <DateRangePicker
                                     onChange={(newValue) => {
@@ -232,7 +233,7 @@ export default function HotelIn() {
                                     renderInput={(params) => <TextField {...params} label="No Of Heads"/>}
                                 />
                             </Grid>
-                            
+
                                 <Box sx={{ minWidth: 150 }}>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">Option one </InputLabel>
@@ -337,7 +338,7 @@ export default function HotelIn() {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                >   
+                >
                 <Typography
                             variant="h1"
                             align="center"
@@ -357,7 +358,7 @@ export default function HotelIn() {
                             }}
                         >
                            Explore hotels {'\n'}around the world
-                                                    </Typography>        
+                                                    </Typography>
                                             <ImageList sx={{ width: 1500, height: 450, borderRadius: 10}}>
                                 <ImageListItem key="Subheader" cols={2}>
                                     <ListSubheader component="div"></ListSubheader>
@@ -373,7 +374,7 @@ export default function HotelIn() {
                                     <ImageListItemBar
                                         title={item.title}
                                         subtitle={item.author}
-                                        
+
                                     />
                                     </ImageListItem>
                                 ))}
@@ -433,7 +434,7 @@ export default function HotelIn() {
                             Review hearts {'\n'}of some hotels
                         </Typography>
                         <Grid container spacing={2} columns={16}>
-        
+
                                     <Grid item xs={8}>
                                     <Paper
                                         sx={{
@@ -446,37 +447,37 @@ export default function HotelIn() {
                                         }}
                                         >
                                         <Grid container spacing={9}>
-                                            
+
                                             <Grid item>
                                             <ButtonBase sx={{ width: 500, height: 300 }}>
                                             <Img alt="complex" src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/112516884.jpg?k=3c9d9f3562af9b4d4dae3f6ba4724a5f4271ee54f9073d2f81bb3199b9fc82aa&o=&hp=1" width={1100} height={500}/>
                                             </ButtonBase>
                                         </Grid>
                   <Grid item xs={12} sm container >
-                    
+
                   <Grid item xs container direction="column" spacing={2}>
                      <Grid item xs>
                          <Typography gutterBottom variant="subtitle1" component="div">
                          Cinnamon Grand Colombo
                          </Typography>
                          <Typography variant="body2" gutterBottom>
-                         Colombo, Sri Lanka 
+                         Colombo, Sri Lanka
                          </Typography>
                          <Typography variant="body2" color="text.secondary">
                              Exceptional
                          </Typography>
-                         
+
                      </Grid>
                   <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
-                
+
                   </Stack>
                   <Button variant="contained" color="success" endIcon={<SendIcon />}>
                       Add to Cart
                   </Button>
-                  
+
                   </Grid>
                </Grid>
                 <Grid item>
@@ -487,9 +488,9 @@ export default function HotelIn() {
                 </Grid>
              </Grid>
              </Paper>
-           
+
          </Grid>
-          
+
           <Grid item xs={8}>
           <Paper
               sx={{
@@ -522,9 +523,9 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
-                
+
                   </Stack>
                   <Button variant="contained" color="success" endIcon={<SendIcon />}>
                       Add to Cart
@@ -539,7 +540,7 @@ export default function HotelIn() {
                 </Grid>
              </Grid>
              </Paper>
-           
+
          </Grid>
          <Grid item xs={8}>
           <Paper
@@ -573,9 +574,9 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-                
+
                   </Stack>
                   <Button variant="contained" color="success" endIcon={<SendIcon />}>
                       Add to Cart
@@ -590,7 +591,7 @@ export default function HotelIn() {
                 </Grid>
              </Grid>
              </Paper>
-           
+
          </Grid>
          <Grid item xs={8}>
           <Paper
@@ -624,9 +625,9 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-                
+
                   </Stack>
                   <Button variant="contained" color="success" endIcon={<SendIcon />}>
                       Add to Cart
@@ -641,7 +642,7 @@ export default function HotelIn() {
                 </Grid>
              </Grid>
              </Paper>
-           
+
          </Grid>
 
          </Grid>
@@ -666,7 +667,7 @@ export default function HotelIn() {
                             }}
                         >
                            The Pride {'\n'}of Hotel Rooms
-                        </Typography>    
+                        </Typography>
      <Grid container spacing={2} columns={16}>
          <Grid item xs={5}>
          <Paper
@@ -694,7 +695,7 @@ export default function HotelIn() {
                          <Typography variant="body2" gutterBottom>
                          The large rooms are a luxurious retreat in the middle of the city, with captivating views of  vibrant scenaries.
                                 the room specified of 35 Sq Mt
-                                wifi 
+                                wifi
                                 Inclusive of WiFi
                                 maximum Occupancy image
                                 Up to 3 guests
@@ -709,16 +710,16 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
-                
+
                   </Stack>
-                  
+
                   </Grid>
                </Grid>
                 <Grid item>
                     <Typography variant="subtitle1" component="div">
-                    
+
                     </Typography>
                 </Grid>
                 </Grid>
@@ -750,11 +751,11 @@ export default function HotelIn() {
                          </Typography>
                          <Typography variant="body2" gutterBottom>
                          The large rooms are a luxurious retreat in the middle of the city, with captivating views of Colombo’s vibrant streets.
-                            The room area includes 
+                            The room area includes
                             35 Sq Mt
                             Inclusive of WiFi
                             maximum Occupancy Up to 3 guests
-                            bed of Twin/Queen 
+                            bed of Twin/Queen
                          </Typography>
                          <Typography variant="body2" color="text.secondary">
                              Starting Rate/Night Rs. 37,000/=
@@ -762,15 +763,15 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={4} precision={0.1} readOnly />
-                
+
                   </Stack>
-                  
+
                   </Grid>
                </Grid>
                 <Grid item>
-                    
+
                 </Grid>
                 </Grid>
              </Grid>
@@ -801,11 +802,11 @@ export default function HotelIn() {
                          </Typography>
                          <Typography variant="body2" gutterBottom>
                          Unwind in a sanctuary of splendour in these well-furnished rooms.
-                                The room contains of area 
+                                The room contains of area
                                 35 Sq Mt
                                 Inclusive of WiFi
                                 maximum Up to 2 guests
-                                bed type of Queen/Twin 
+                                bed type of Queen/Twin
                          </Typography>
                          <Typography variant="body2" color="text.secondary">
                                Starting Rate/Night Rs. 30,000/=
@@ -813,15 +814,15 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={3.5} precision={0.5} readOnly />
-                
+
                   </Stack>
-                
+
                   </Grid>
                </Grid>
                 <Grid item>
-                    
+
                 </Grid>
                 </Grid>
              </Grid>
@@ -852,10 +853,10 @@ export default function HotelIn() {
                          </Typography>
                          <Typography variant="body2" gutterBottom>
                          With contemporary décor and exquisite ethnic aspects, the brand new Deluxe Suites redefine
-                         elegance. Enjoy a Continental breakfast served by your own butler, while gazing at the 
+                         elegance. Enjoy a Continental breakfast served by your own butler, while gazing at the
                           stunning scenaries
 
-                          The room concists of 
+                          The room concists of
                              63 Sq Mt of room
                             Inclusive of WiFi
                             maximum Up to 3 guests
@@ -870,16 +871,16 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={4.0} precision={0.5} readOnly />
-                
+
                   </Stack>
-                  
+
                   </Grid>
                </Grid>
                 <Grid item>
                     <Typography variant="subtitle1" component="div">
-                    
+
                     </Typography>
                 </Grid>
                 </Grid>
@@ -911,10 +912,10 @@ export default function HotelIn() {
                          </Typography>
                          <Typography variant="body2" gutterBottom>
                          The enchanting Grand Luxury Suite displays immaculate luxury and distinction with spellbinding ocean views. These masterpieces can be combined with an adjacent connecting room to form a two-bedroom suite.
-                                The room area covers 
+                                The room area covers
                                 98 Sq Mt with
                                 Inclusive of WiFi
-                                maximum Occoupance Up to 3 guests and 
+                                maximum Occoupance Up to 3 guests and
                                 bed type of King
                          </Typography>
                          <Typography variant="body2" color="text.secondary">
@@ -923,15 +924,15 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={5} precision={0.1} readOnly />
-                
+
                   </Stack>
-                  
+
                   </Grid>
                </Grid>
                 <Grid item>
-                    
+
                 </Grid>
                 </Grid>
              </Grid>
@@ -958,7 +959,7 @@ export default function HotelIn() {
                   <Grid item xs container direction="column" spacing={2}>
                      <Grid item xs>
                          <Typography gutterBottom variant="subtitle1" component="div" align='center'>
-                                Executive 1 Bed Room Suite Ocean View 
+                                Executive 1 Bed Room Suite Ocean View
                          </Typography>
                          <Typography variant="body2" gutterBottom>
                          The extravagant Executive Suites boast contemporary interiors with mesmerising ocean views. Each has a relaxing living room, elegant bedroom and extravagant bathroom, and offers you nothing but the best experience.
@@ -973,15 +974,15 @@ export default function HotelIn() {
                      </Grid>
                      <Grid item align = "center">
                   <Stack spacing={1}>
-      
+
                     <Rating name="half-rating-read" defaultValue={3.5} precision={0.5} readOnly />
-                
+
                   </Stack>
-                
+
                   </Grid>
                </Grid>
                 <Grid item>
-                    
+
                 </Grid>
                 </Grid>
              </Grid>
@@ -997,19 +998,19 @@ export default function HotelIn() {
               backgroundColor: (theme) =>
                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                }}
-             ></Paper></Grid>       
+             ></Paper></Grid>
      <Grid container spacing={2} columns={30}>
          <Grid item xs={6}>
            <Item>
           <ul>Countries</ul>
-          
+
           <ul >Cities</ul>
           <ul >Airports</ul>
           <ul >Hotels</ul></Item>
          </Grid>
          <Grid item xs={6}>
             <Item>
-          
+
           <ul >Resorts</ul>
           <ul >Villas</ul>
           <ul >Hostels</ul>
@@ -1018,7 +1019,7 @@ export default function HotelIn() {
          <Grid item xs={6}>
             <Item><ul>Unique places to stay</ul>
           <ul >Reviews</ul>
-          
+
           <ul >Travel communities</ul>
           <ul >Seasonal and holiday deals</ul></Item>
          </Grid>
@@ -1031,16 +1032,16 @@ export default function HotelIn() {
          <Grid item xs={6}>
             <Item><ul>Curtomer Service</ul>
           <ul >Partner Help</ul>
-          
+
           <ul >Sustainability</ul>
-          
+
           <ul >Terms & conditions</ul></Item>
          </Grid>
-         
-     </Grid>     
-    
+
+     </Grid>
+
     <Grid>
-       
+
     </Grid>
             </Grid>
             <Snackbar
@@ -1052,17 +1053,17 @@ export default function HotelIn() {
             >
                 <Alert severity="error">{message}</Alert>
             </Snackbar>
-           
-                 
-            
 
-                
+
+
+
+
         </Grid>
-        
-        
-    
+
+
+
     );
-    
+
 }
 const itemData = [
     {
@@ -1125,7 +1126,7 @@ const itemData = [
       title: 'Kalia Bingin',
       author: 'Uluwatu, Indonesia',
     },
-   
+
   ];
 
   const itemDatas = [
