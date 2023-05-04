@@ -4,13 +4,23 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+
+const label = { inputProps: { 'aria-label': 'Single bed' } };
 
 const products = [
   {
     name: 'Product 1',
     desc: 'A nice thing',
     price: '$9.99',
+    
   },
+  
   {
     name: 'Product 2',
     desc: 'Another thing',
@@ -45,10 +55,38 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+          <ListItem key={product.name} sx={{ py: 1, px: 0 }} >
+            
             <ListItemText primary={product.name} secondary={product.desc} />
+            <FormGroup>
+              
+              <FormControlLabel required control={<Checkbox />} label="King" />
+              <FormControlLabel required control={<Checkbox />} label="Queen" />
+              <FormControlLabel required control={<Checkbox />} label="Deluxe" />
+              <FormControlLabel required control={<Checkbox />} label="Super Deluxe" />
+              <FormControlLabel required control={<Checkbox />} label="Suite" />
+              
+           </FormGroup>
+           <FormGroup>
+              
+              <FormControlLabel required control={<Checkbox />} label="Full Board" />
+              <FormControlLabel required control={<Checkbox />} label="Half Board" />
+              <FormControlLabel required control={<Checkbox />} label="Bed & Breakfast" />
+              <FormControlLabel required control={<Checkbox />} label="Room Only" />
+              
+              
+           </FormGroup>
+          
+
+           
+           
+           
+           
             <Typography variant="body2">{product.price}</Typography>
+            
+            
           </ListItem>
+          
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>

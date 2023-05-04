@@ -11,6 +11,11 @@ import FlightSearch from "./components/FlightSearch";
 import Checkout from "./screens/Checkout";
 import hotelcheckout from './screens/Hotel/HotelCheckout';
 import Hotelcheckouts from './screens/Hotel/HotelCheckout';
+import QuantityEdit from './screens/Hotel/Hotelcart';
+import SearchItem from './screens/Hotel/SearchItem';
+import List from  './screens/Hotel/List';
+
+
 
 function App() {
     return (
@@ -23,6 +28,10 @@ function App() {
                 <Route exact path='/flight-checkout' element={<Checkout/>}/>
                 <Route exact path='/hotel' element={<HotelIn/>}/>
                 <Route exact path='/hotelcheckout' element={<Hotelcheckouts/>}/>
+                <Route exact path='/hotelcart' element={<QuantityEdit/>}/>
+                <Route exact path='/search' element={<SearchItem/>}/>
+                <Route exact path='/filter' element={<List/>}/>
+                
             </Routes>
         </LocalizationProvider>
     );

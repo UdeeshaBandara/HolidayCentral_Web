@@ -64,12 +64,12 @@ export default function HotelIn() {
     const {vertical, horizontal, isOpen, message} = alertState;
     const [filterValues, setFilterValues] = useState([]);
     const [selectedFilterValues, setSelectedFilterValues] = useState({
-        departure: "",
-        arrival: '',
-        fromDate: '',
-        toDate: '',
-        cabin: '',
-        airline: ''
+        location: "",
+        hotel: "",
+        checkIn: '',
+        checkOut: '',
+        room: '',
+        heads: '',
     });
 
     useEffect(() => {
@@ -125,11 +125,11 @@ export default function HotelIn() {
 
                         <Typography
                             variant="h1"
-                            align="left"
+                            align="center"
                             color="grey.700"
                             xs={12} sm={3} md={2}
                             sx={{
-                                width: "100%",
+                                width: "2500",
                                 textAlign: "center",
                                 backgroundColor: "primary",
                                 backgroundImage: `linear-gradient(45deg, #5514B4, #FF80FF)`,
@@ -141,7 +141,7 @@ export default function HotelIn() {
                                 fontFamily: 'bold'
                             }}
                         >
-                            It’s more than{'\n'}just a trip
+                            A hotel in the {'\n'}heart of everything
                         </Typography>
 
                         <Grid container direction="row" alignItems="center" justifyContent='center'
@@ -160,7 +160,7 @@ export default function HotelIn() {
                                     xs={12}
                                     onChange={(event, value) => setSelectedFilterValues({
                                         ...selectedFilterValues,
-                                        arrival: value
+                                        location: value
                                     })}
                                     options={filterValues.arrivals}
                                     renderInput={(params) => <TextField {...params} label="Where are you going"/>}/>
@@ -172,18 +172,18 @@ export default function HotelIn() {
                                         if (newValue[0] !== null) {
                                             setSelectedFilterValues({
                                                 ...selectedFilterValues,
-                                                fromDate: newValue[0]._d
+                                                checkIn: newValue[0]._d
                                             })
                                         }
                                         if (newValue[1] !== null) {
                                             setSelectedFilterValues({
                                                 ...selectedFilterValues,
-                                                toDate: newValue[1]._d
+                                                checkOut: newValue[1]._d
                                             })
                                         }
                                     }}
                                     xs={12} sx={{flex: 1,}}
-                                    localeText={{start: 'Departure Date', end: 'Arrival Date'}}/>
+                                    localeText={{start: 'Check In Date', end: 'Check out Date'}}/>
                             </Grid>
                             <Grid item xs={12} sm={3} md={2}>
                                 <Autocomplete
@@ -193,16 +193,16 @@ export default function HotelIn() {
                                     xs={12}
                                     onChange={(event, value) => setSelectedFilterValues({
                                         ...selectedFilterValues,
-                                        cabin: value
+                                        heads: value
                                     })}
                                     options={filterValues.cabins}
-                                    renderInput={(params) => <TextField {...params} label="Cabin"/>}
+                                    renderInput={(params) => <TextField {...params} label="No Of Heads"/>}
                                 />
                             </Grid>
                             
 
                         </Grid>
-                        <Button variant="outlined" size="large" endIcon={<SearchIcon sx={{
+                        <Button variant="outlined" size="large" color="secondary" endIcon={<SearchIcon sx={{
                             width: 30,
                             height: 30
                         }}/>} onClick={() => {
@@ -213,16 +213,16 @@ export default function HotelIn() {
                                     isOpen: true
                                 });
                             } else if (selectedFilterValues.arrival === '') {
-                                setAlertState({...alertState, message: 'Please select arrival location', isOpen: true});
+                                setAlertState({...alertState, message: 'Please type where visiting', isOpen: true});
                             } else if (selectedFilterValues.fromDate === '') {
-                                setAlertState({...alertState, message: 'Please select from date', isOpen: true});
+                                setAlertState({...alertState, message: 'Please select Check In', isOpen: true});
                             } else if (selectedFilterValues.toDate === '') {
-                                setAlertState({...alertState, message: 'Please select to date', isOpen: true});
+                                setAlertState({...alertState, message: 'Please select Check Out', isOpen: true});
                             } else if (selectedFilterValues.cabin === '') {
-                                setAlertState({...alertState, message: 'Please select cabin type', isOpen: true});
+                                setAlertState({...alertState, message: 'Please select number of heads', isOpen: true});
                             } else {
 
-                                navigate('flight-search', {
+                                navigate('hotel-search', {
                                     state: {
                                         selectedFilterValues: selectedFilterValues,
                                         filterValues: filterValues
@@ -252,7 +252,7 @@ export default function HotelIn() {
             >           
                 <ImageList sx={{ width: 1500, height: 450, borderRadius: 10}}>
       <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">December</ListSubheader>
+        <ListSubheader component="div"></ListSubheader>
       </ImageListItem>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
