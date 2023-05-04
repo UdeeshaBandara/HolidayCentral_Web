@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useNavigate} from "react-router-dom";
+import env from "react-dotenv";
 
 import useToken from "../../hooks/useToken";
 
@@ -7,15 +8,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import LoginCover from "../../Assets/SVGIcons/LoginCover";
+import MainLogo from "../../Assets/SVGIcons/MainLogo";
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
-import env from "react-dotenv";
-import LoginCover from "../../Assets/SVGIcons/LoginCover";
 
 const theme = createTheme();
 
