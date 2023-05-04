@@ -3,14 +3,12 @@ import { useCart } from "react-use-cart";
 
 import CartNav from "../CartNav";
 
-import AdbIcon from '@mui/icons-material/Adb';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -60,7 +58,6 @@ function MainAppBar() {
         <AppBar position="fixed" sx={{ bgcolor: Colors.primaryDarkBlue }} enableColorOnDark>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <MainLogo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -116,7 +113,6 @@ function MainAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap

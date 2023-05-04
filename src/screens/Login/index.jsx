@@ -20,8 +20,9 @@ import LoginCover from "../../Assets/SVGIcons/LoginCover";
 const theme = createTheme();
 
 export default function Login() {
-    const navigate = useNavigate()
-    const {setToken} = useToken()
+    const navigate = useNavigate();
+
+    const {setToken} = useToken();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -36,9 +37,13 @@ export default function Login() {
         })
             .then((response) => response.json())
             .then((data) => {
-                setToken(`Bearer ${data.access_token}`);
 
-                navigate('/', {replace: true});
+                if ('access_token' in data){
+                    setToken(`Bearer ${data.access_token}`);
+                    navigate('/', {replace: true});
+                }else{
+
+                }
             });
     };
 
@@ -102,7 +107,8 @@ export default function Login() {
                             <Button
                                 type="submit"
                                 fullWidth
-                                variant="contained"
+                                size="large"
+                                variant="outlined"
                                 sx={{mt: 3, mb: 2}}
                             >
                                 Sign In

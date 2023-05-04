@@ -1,4 +1,5 @@
 import * as React from "react"
+
 const Map = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +9,7 @@ const Map = (props) => (
         fill="none"
         {...props}
     >
-        <rect width="100%" height={700} fill="url(#a)" />
+        <rect width={1440} height={700} fill="url(#a)"/>
         <defs>
             <pattern
                 id="a"
@@ -16,7 +17,7 @@ const Map = (props) => (
                 height={1}
                 patternContentUnits="objectBoundingBox"
             >
-                <use xlinkHref="#b" transform="matrix(.00063 0 0 .00129 0 -.013)" />
+                <use xlinkHref="#b" transform="matrix(.00063 0 0 .00129 0 -.013)"/>
             </pattern>
             <image
                 xlinkHref="https://media.istockphoto.com/id/166054643/vector/design.jpg?s=612x612&w=0&k=20&c=66UHp7THLuNk7I4BsYvPERL1rnPL6PJ_f3s9lnWnmIM="
