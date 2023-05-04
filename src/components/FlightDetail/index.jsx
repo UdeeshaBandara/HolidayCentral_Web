@@ -1,32 +1,27 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Box from "@mui/material/Box";
-import AirLineIcon from "../../Assets/SVGIcons/AirLineIcon";
+import Button from "@mui/material/Button";
 import {
     Dialog,
     DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     FormControl,
     InputLabel,
-    ListItem,
     Select,
-    Typography
+    Typography,
 } from "@mui/material";
-import {Colors} from "../../Theme/Variables";
-import Button from "@mui/material/Button";
-import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Grid";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import TextField from "@mui/material/TextField";
-import {useEffect, useState} from "react";
-import Plane from "../../Assets/SVGIcons/Plane";
 import MenuItem from "@mui/material/MenuItem";
-import {CartProvider, useCart} from "react-use-cart";
+import Plane from "../../Assets/SVGIcons/Plane";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import {useNavigate} from "react-router-dom";
 
-export default function FlightDetail({item, isCart = false, cabin_type=''}) {
-    const {addItem, removeItem, totalUniqueItems} = useCart();
+import { Colors } from "../../Theme/Variables";
+
+export default function FlightDetail({ item, isCart = false, cabin_type = '' }) {
+    const { addItem, removeItem, totalUniqueItems } = useCart();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [seat, setSeat] = useState('');
@@ -117,10 +112,10 @@ export default function FlightDetail({item, isCart = false, cabin_type=''}) {
                     </Typography>
 
                 </Box></Grid> : <Typography
-                variant="body2"
-                align="center"
-                color={Colors.gray002}
-            >
+                    variant="body2"
+                    align="center"
+                    color={Colors.gray002}
+                >
                 Quantity {item.quantity}
             </Typography>}
             <Box sx={{
@@ -148,7 +143,7 @@ export default function FlightDetail({item, isCart = false, cabin_type=''}) {
             <Grid item xs={11} sm={3} md={1.5}>
                 {isCart ? <Button variant="outlined" size="large" endIcon={<RemoveCircleOutlineIcon sx={{
                     width: 15, height: 15
-                }}/>} onClick={() => {
+                }} />} onClick={() => {
                     removeItem(item.id)
                     if (totalUniqueItems === 1)
                         navigate('/');
@@ -165,7 +160,7 @@ export default function FlightDetail({item, isCart = false, cabin_type=''}) {
                     remove
                 </Button> : <Button variant="outlined" size="large" endIcon={<AddShoppingCartIcon sx={{
                     width: 30, height: 30
-                }}/>} onClick={handleClickOpen} sx={{
+                }} />} onClick={handleClickOpen} sx={{
                     textTransform: "none",
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -178,22 +173,22 @@ export default function FlightDetail({item, isCart = false, cabin_type=''}) {
                 </Button>}
             </Grid>
             <Dialog fullWidth={true}
-                    maxWidth={"md"} open={open}>
+                maxWidth={"md"} open={open}>
                 <Grid container direction="row" alignItems="center" justifyContent='center'
-                      sx={{
-                          gap: 2,
+                    sx={{
+                        gap: 2,
 
-                      }}
+                    }}
                 > <Grid item>
 
-                    <Plane width={580} height={500}/>
+                        <Plane width={580} height={500} />
 
-                </Grid>
+                    </Grid>
                     <Grid item>
                         <Grid container direction="row" alignItems="center" justifyContent='center'
-                              sx={{
-                                  gap: 2,
-                              }}
+                            sx={{
+                                gap: 2,
+                            }}
                         >
                             <FormControl fullWidth>
                                 <InputLabel id="Seat Type">Seat Type</InputLabel>
@@ -211,23 +206,23 @@ export default function FlightDetail({item, isCart = false, cabin_type=''}) {
                                     <MenuItem value='Middle'>middle</MenuItem>
                                 </Select>
                             </FormControl> <FormControl fullWidth>
-                            <InputLabel id="Meal">Meal</InputLabel>
-                            <Select
-                                labelId="meal"
-                                id="meal-select"
-                                value={meal}
-                                label="Meal"
-                                onChange={(event) => {
-                                    setMeal(event.target.value);
-                                }}
-                            >
-                                <MenuItem value='AVML'>AVML</MenuItem>
-                                <MenuItem value='BBML'>BBML</MenuItem>
-                                <MenuItem value='DBML'>DBML</MenuItem>
-                                <MenuItem value='HFML'>HFML</MenuItem>
-                                <MenuItem value='JPML'>JPML</MenuItem>
-                            </Select>
-                        </FormControl>
+                                <InputLabel id="Meal">Meal</InputLabel>
+                                <Select
+                                    labelId="meal"
+                                    id="meal-select"
+                                    value={meal}
+                                    label="Meal"
+                                    onChange={(event) => {
+                                        setMeal(event.target.value);
+                                    }}
+                                >
+                                    <MenuItem value='AVML'>AVML</MenuItem>
+                                    <MenuItem value='BBML'>BBML</MenuItem>
+                                    <MenuItem value='DBML'>DBML</MenuItem>
+                                    <MenuItem value='HFML'>HFML</MenuItem>
+                                    <MenuItem value='JPML'>JPML</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
 
                         <DialogActions>

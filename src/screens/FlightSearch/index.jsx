@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import {useLocation} from 'react-router-dom';
 import env from "react-dotenv";
 
-import MainAppBar from "../AppBar";
+import MainAppBar from "../../components/AppBar";
 
 import {Alert, Autocomplete, FormControl, InputLabel, Select, Snackbar, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import ClearIcon from '@mui/icons-material/Clear';
 import {DateRangePicker} from "@mui/x-date-pickers-pro/DateRangePicker";
-import FlightDetail from "../FlightDetail";
+import FlightDetail from "../../components/FlightDetail";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,9 +17,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
 import {Colors} from "../../Theme/Variables";
+import useToken from "../../hooks/useToken";
 
 export default function FlightSearch() {
     const location = useLocation();
+    const {token} = useToken();
+
     const [filterValues] = useState(location.state.filterValues);
     const [alertState, setAlertState] = React.useState({
         vertical: 'top',
@@ -38,7 +41,7 @@ export default function FlightSearch() {
 
     useEffect(() => {
         getFlights();
-    },[]);
+    }, []);
 
     const filterFlights = (price, duration, airline) => {
         let flightFiltered;
@@ -73,6 +76,7 @@ export default function FlightSearch() {
                 airline: selectedFilterValues.airline
             }), headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': token,
             },
         })
             .then((response) => response.json())
@@ -311,8 +315,13 @@ export default function FlightSearch() {
 
             </Grid>
             {flights.length > 0 ? flights.map((item, idx) => {
-                return (<Grid sx={{mx: 5}} key={idx}><FlightDetail item={item} cabin_type={selectedFilterValues.cabin}/></Grid>);
-            }) : <Grid item xs={11} sm={3} md={1.5} key={new Date()}>
+                return (
+                    <Grid sx={{mx: 5}} key={idx}>
+                        <FlightDetail item={item} cabin_type={selectedFilterValues.cabin}/>
+                    </Grid>);
+            })
+
+                : <Grid item xs={11} sm={3} md={1.5} key={new Date()}>
 
                 <Typography
                     variant="h6"

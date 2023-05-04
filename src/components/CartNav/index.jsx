@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useCart} from "react-use-cart";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
 import FlightDetail from "../FlightDetail";
 
@@ -15,7 +15,7 @@ import Grid from "@mui/material/Grid";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import {Colors} from "../../Theme/Variables";
+import { Colors } from "../../Theme/Variables";
 
 export default function CartNav() {
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function CartNav() {
     return (
         <>
             <React.Fragment key={'right'}>
-                <Box onClick={toggleDrawer('right', true)} sx={{mr: 3, position: 'relative',}}>
+                <Box onClick={toggleDrawer('right', true)} sx={{ mr: 3, position: 'relative', }}>
                     <Typography
                         noWrap
                         sx={{
@@ -55,101 +55,101 @@ export default function CartNav() {
                     >
                         {totalUniqueItems}
                     </Typography>
-                    <ShoppingCartIcon/>
+                    <ShoppingCartIcon />
                 </Box>
                 <Drawer
                     anchor={'right'}
                     open={isOpen}
                     onClose={toggleDrawer(false)}
                 ><Box
-                    sx={{width: "100%"}}
+                    sx={{ width: "100%" }}
                     role="presentation"
-                    onClick={toggleDrawer( false)}
-                    onKeyDown={toggleDrawer( false)}
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
                 >
-                    <List>
-                        {items.map((text, index) => (
-                            <Grid sx={{mx: 2}}> <FlightDetail key={index} item={text} isCart={true}/></Grid>
+                        <List>
+                            {items.map((text, index) => (
+                                <Grid sx={{ mx: 2 }}> <FlightDetail key={index} item={text} isCart={true} /></Grid>
 
-                        ))}
-                    </List>
-                    <Divider/>
-                    <Grid container direction="column" alignItems="flex-end" justifyContent='center'
-                          sx={{
-                              pt: 5,
-                              gap: 2,
-                          }}
-                    >
-                        <Grid item>
-                            <Grid container direction="row" justifyContent='flex-end' alignItems="center">
-                                <Typography
-                                    variant="body2"
-                                    align="left"
-                                    color={Colors.gray002}
-                                >
-                                    Subtotal </Typography><Typography
-                                sx={{
-                                    px: 2
-                                }}
-                                variant="body2"
-                                align="left"
-                                color={Colors.primaryBlack}
-                            > ${cartTotal}</Typography>
+                            ))}
+                        </List>
+                        <Divider />
+                        <Grid container direction="column" alignItems="flex-end" justifyContent='center'
+                            sx={{
+                                pt: 5,
+                                gap: 2,
+                            }}
+                        >
+                            <Grid item>
+                                <Grid container direction="row" justifyContent='flex-end' alignItems="center">
+                                    <Typography
+                                        variant="body2"
+                                        align="left"
+                                        color={Colors.gray002}
+                                    >
+                                        Subtotal </Typography><Typography
+                                            sx={{
+                                                px: 2
+                                            }}
+                                            variant="body2"
+                                            align="left"
+                                            color={Colors.primaryBlack}
+                                        > ${cartTotal}</Typography>
 
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Grid container direction="row" justifyContent='flex-end' alignItems="center">
-                                <Typography
-                                    variant="body2"
-                                    align="left"
-                                    color={Colors.gray002}
-                                >
-                                    Taxes and Fees </Typography><Typography
-                                sx={{
-                                    px: 2
-                                }}
-                                variant="body2"
-                                align="left"
-                                color={Colors.primaryBlack}
-                            > ${cartTotal * 0.15}</Typography>
+                            <Grid item>
+                                <Grid container direction="row" justifyContent='flex-end' alignItems="center">
+                                    <Typography
+                                        variant="body2"
+                                        align="left"
+                                        color={Colors.gray002}
+                                    >
+                                        Taxes and Fees </Typography><Typography
+                                            sx={{
+                                                px: 2
+                                            }}
+                                            variant="body2"
+                                            align="left"
+                                            color={Colors.primaryBlack}
+                                        > ${cartTotal * 0.15}</Typography>
 
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Grid container direction="row" justifyContent='flex-end' alignItems="center">
-                                <Typography
-                                    variant="body2"
-                                    align="left"
-                                    color={Colors.gray002}
-                                >
-                                    Total </Typography><Typography
-                                sx={{
-                                    px: 2
-                                }}
-                                variant="body2"
-                                align="left"
-                                color={Colors.primaryBlack}
-                            > ${(cartTotal + cartTotal * 0.15)}</Typography>
+                            <Grid item>
+                                <Grid container direction="row" justifyContent='flex-end' alignItems="center">
+                                    <Typography
+                                        variant="body2"
+                                        align="left"
+                                        color={Colors.gray002}
+                                    >
+                                        Total </Typography><Typography
+                                            sx={{
+                                                px: 2
+                                            }}
+                                            variant="body2"
+                                            align="left"
+                                            color={Colors.primaryBlack}
+                                        > ${(cartTotal + cartTotal * 0.15)}</Typography>
 
+                                </Grid>
                             </Grid>
+                            <Button variant="outlined" size="large" endIcon={<ShoppingCartCheckoutIcon sx={{
+                                width: 30, height: 30,
+                            }} />} onClick={() => navigate('/flight-checkout')} sx={{
+                                textTransform: "none",
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: 50,
+                                border: 1,
+                                fontSize: 14,
+                                fontWeight: 'light',
+                                mr: 1
+                            }}>
+                                Checkout
+                            </Button>
                         </Grid>
-                        <Button variant="outlined" size="large" endIcon={<ShoppingCartCheckoutIcon sx={{
-                            width: 30, height: 30,
-                        }}/>} onClick={() => navigate('/flight-checkout')} sx={{
-                            textTransform: "none",
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: 50,
-                            border: 1,
-                            fontSize: 14,
-                            fontWeight: 'light',
-                            mr: 1
-                        }}>
-                            Checkout
-                        </Button>
-                    </Grid>
-                </Box>
+                    </Box>
                 </Drawer>
             </React.Fragment></>);
 }

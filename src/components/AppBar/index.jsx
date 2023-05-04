@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {useCart} from "react-use-cart";
+import { useCart } from "react-use-cart";
 
 import CartNav from "../CartNav";
 
-import AdbIcon from '@mui/icons-material/Adb';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -17,18 +16,23 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import {Colors} from "../../Theme/Variables";
+import { Colors } from "../../Theme/Variables";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 
 const pages = ['Flights', 'Hotel', 'Packages'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 function MainAppBar() {
     const {
         isEmpty
     } = useCart();
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const {setToken} = useToken();
+    const navigate = useNavigate();
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -41,15 +45,19 @@ function MainAppBar() {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (text) => {
+        if(text==='Logout') {
+            setToken('');
+            navigate('/login');
+
+        }
         setAnchorElUser(null);
     };
 
     return (
-        <AppBar position="fixed" sx={{bgcolor: Colors.primaryDarkBlue}} enableColorOnDark>
+        <AppBar position="fixed" sx={{ bgcolor: Colors.primaryDarkBlue }} enableColorOnDark>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
                     <Typography
                         variant="h6"
                         noWrap
@@ -57,7 +65,7 @@ function MainAppBar() {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: {xs: 'none', md: 'flex'},
+                            display: { xs: 'none', md: 'flex' },
                             fontFamily: 'bold',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -68,7 +76,7 @@ function MainAppBar() {
                         Holiday Central
                     </Typography>
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}, justifyContent: 'flex-end'}}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -77,7 +85,7 @@ function MainAppBar() {
                             onClick={handleOpenNavMenu}
                             color="inherit"
                         >
-                            <MenuIcon/>
+                            <MenuIcon />
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -94,7 +102,7 @@ function MainAppBar() {
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: {xs: 'block', md: 'none'},
+                                display: { xs: 'block', md: 'none' },
 
                             }}
                         >
@@ -105,7 +113,6 @@ function MainAppBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                     <Typography
                         variant="h5"
                         noWrap
@@ -113,7 +120,7 @@ function MainAppBar() {
                         href=""
                         sx={{
                             mr: 2,
-                            display: {xs: 'flex', md: 'none'},
+                            display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
                             fontFamily: 'regular',
                             fontWeight: 700,
@@ -124,26 +131,26 @@ function MainAppBar() {
                     >
                         Holiday Central
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
                             </Button>
                         ))}
                     </Box>
-                    {!isEmpty && <CartNav/>}
-                    <Box sx={{flexGrow: 0}}>
+                    {!isEmpty && <CartNav />}
+                    <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                <Avatar src="/static/images/avatar/2.jpg"/>
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{mt: '45px'}}
+                            sx={{ mt: '45px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -159,7 +166,7 @@ function MainAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}

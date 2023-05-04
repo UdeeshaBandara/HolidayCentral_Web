@@ -1,35 +1,45 @@
 import * as React from 'react';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import CssBaseline from '@mui/material/CssBaseline';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import env from "react-dotenv";
+import {useNavigate} from "react-router-dom";
+import MainLogo from "../../Assets/SVGIcons/MainLogo.svg";
 const theme = createTheme();
 
 export default function Register() {
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        fetch(`${env.BASE_URL}user/register`,{
+            method: 'POST', body: JSON.stringify({
+                username: data.get('email'),
+                password: data.get('password'),
+                userType: '1'
+            }), headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                navigate('/login',{replace:true});
+            });
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline/>
+                <CssBaseline />
                 <Box
                     sx={{
                         marginTop: 8,
@@ -38,13 +48,11 @@ export default function Register() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                        <LockOutlinedIcon/>
-                    </Avatar>
+                    <MainLogo/>
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -88,24 +96,20 @@ export default function Register() {
                                     autoComplete="new-password"
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid>
+
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
-                            variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            size="large"
+                            variant="outlined"
+                            sx={{ mt: 3, mb: 2 }}
                         >
                             Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link  href="../login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

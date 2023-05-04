@@ -13,9 +13,11 @@ import Map from "../../Assets/SVGIcons/Map";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import useToken from "../../hooks/useToken";
 
 export default function Home() {
     const navigate = useNavigate();
+    const {token} = useToken();
 
     const [alertState, setAlertState] = React.useState({
         vertical: 'top',
@@ -39,7 +41,12 @@ export default function Home() {
     }, []);
 
     const getFilterValues = () => {
-        fetch(`${env.BASE_URL}flight/query/param`)
+        fetch(`${env.BASE_URL}flight/query/param`, {
+            method: 'GET', headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': token,
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 data.cabins = data.cabins.map(a => a.name);
@@ -52,6 +59,7 @@ export default function Home() {
     return (
         <Grid>
             <MainAppBar/>
+
             <Grid container direction="column" alignItems="center" component="main" sx={{
                 width: '100%',
                 overflowY: "scroll",
@@ -62,10 +70,9 @@ export default function Home() {
                           width: '100%',
                           position: "relative",
                           overflowY: "scroll",
-
+                          pt:10,
                       }}
                 >
-
                     <Map/>
 
                     <Grid container direction="column" alignItems="center"
@@ -75,7 +82,6 @@ export default function Home() {
                               top: "20%",
                           }}
                     >
-
                         <Typography
                             variant="h1"
                             align="left"
@@ -184,11 +190,7 @@ export default function Home() {
                             height: 30
                         }}/>} onClick={() => {
                             if (selectedFilterValues.departure === '') {
-                                setAlertState({
-                                    ...alertState,
-                                    message: 'Please select departure location',
-                                    isOpen: true
-                                });
+                                setAlertState({...alertState, message: 'Please select departure location', isOpen: true});
                             } else if (selectedFilterValues.arrival === '') {
                                 setAlertState({...alertState, message: 'Please select arrival location', isOpen: true});
                             } else if (selectedFilterValues.fromDate === '') {
