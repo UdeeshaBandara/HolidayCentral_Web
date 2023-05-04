@@ -15,34 +15,22 @@ const label = { inputProps: { 'aria-label': 'Single bed' } };
 
 const products = [
   {
-    name: 'Product 1',
-    desc: 'A nice thing',
-    price: '$9.99',
+    hotel: 'Shangri la',
+    Address : "",
+    Head_Count : '5',
+    Email : "Supunperera95@gmail.com",
+    Phone: '07795658',
+    Board_Basis : 'Full Board',
+    Room : "Deluxe Room ",
     
   },
   
-  {
-    name: 'Product 2',
-    desc: 'Another thing',
-    price: '$3.45',
-  },
-  {
-    name: 'Product 3',
-    desc: 'Something else',
-    price: '$6.51',
-  },
-  {
-    name: 'Product 4',
-    desc: 'Best thing of all',
-    price: '$14.11',
-  },
-  { name: 'Shipping', desc: '', price: 'Free' },
 ];
 
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+const addresses = ['Ethulkotte','Srilanka'];
 const payments = [
   { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
+  { name: 'Card holder', detail: 'Mr Supun Perera' },
   { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
   { name: 'Expiry date', detail: '04/2024' },
 ];
@@ -55,35 +43,12 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }} >
+          <ListItem key={product.hotel} sx={{ py: 1, px: 0 }} >
             
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <FormGroup>
-              
-              <FormControlLabel required control={<Checkbox />} label="King" />
-              <FormControlLabel required control={<Checkbox />} label="Queen" />
-              <FormControlLabel required control={<Checkbox />} label="Deluxe" />
-              <FormControlLabel required control={<Checkbox />} label="Super Deluxe" />
-              <FormControlLabel required control={<Checkbox />} label="Suite" />
-              
-           </FormGroup>
-           <FormGroup>
-              
-              <FormControlLabel required control={<Checkbox />} label="Full Board" />
-              <FormControlLabel required control={<Checkbox />} label="Half Board" />
-              <FormControlLabel required control={<Checkbox />} label="Bed & Breakfast" />
-              <FormControlLabel required control={<Checkbox />} label="Room Only" />
-              
-              
-           </FormGroup>
-          
-
-           
-           
-           
-           
+            <ListItemText primary={product.hotel} secondary={product.Board_Basis}  />
+            
             <Typography variant="body2">{product.price}</Typography>
-            
+            <ListItemText primary= {product.Head_Count} secondary={product.Room}  />
             
           </ListItem>
           
@@ -92,7 +57,7 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+              Rs 137,000/=
           </Typography>
         </ListItem>
       </List>
@@ -101,7 +66,7 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>Supun Perera</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

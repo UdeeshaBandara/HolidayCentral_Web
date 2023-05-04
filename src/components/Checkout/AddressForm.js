@@ -9,7 +9,7 @@ export default function AddressForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Personal Details
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -39,7 +39,7 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="Address line "
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
@@ -47,61 +47,58 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
+            id="Email"
+            name="Email"
+            label="Email"
             fullWidth
-            autoComplete="shipping address-line2"
+            autoComplete="Email"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="city"
-            name="city"
-            label="City"
+            id="phone"
+            name="phone"
+            label="Phone Number"
             fullWidth
-            autoComplete="shipping address-level2"
+            autoComplete="Phone"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
+            id="heads"
+            name="heads"
+            label="No. Of Heads"
             fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="country"
-            name="country"
-            label="Country"
+            id="board_basis"
+            name="board_basis"
+            label=" Your board basis"
             fullWidth
-            autoComplete="shipping country"
+            autoComplete="board_basis"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="room_selection"
+            name="room_selection"
+            label="Room selected "
+            fullWidth
+            autoComplete="room_selection"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
+          
         </Grid>
       </Grid>
     </React.Fragment>
