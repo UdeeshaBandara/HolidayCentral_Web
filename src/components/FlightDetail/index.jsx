@@ -34,6 +34,7 @@ export default function FlightDetail({ item, isCart = false, cabin_type = '' }) 
 
     const handleSubmit = () => {
         setOpen(false);
+        item.type = "flight"
         item.id = item._id;
         item.meal = meal;
         item.seat = seat;

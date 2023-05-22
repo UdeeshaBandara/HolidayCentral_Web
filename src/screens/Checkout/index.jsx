@@ -50,7 +50,11 @@ export default function Checkout() {
             validateUserInputs();
         } else if (activeStep === steps.length - 1) {
             items.forEach(async (item) => {
-                await saveReservation(item);
+                if (item.type === "flight"){
+                    await saveReservation(item);
+                } else if (item.type === "package") {
+                    await savePackageReservation(item);
+                }
             });
             setActiveStep(activeStep + 1);
             emptyCart();
@@ -70,6 +74,25 @@ export default function Checkout() {
                 phone: personalDetails.phone,
                 pax: item.quantity,
                 price: item.price
+            }), headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': token,
+            },
+        });
+        let data = await response.json();
+        return data.status;
+
+    };
+    const savePackageReservation = async (item) => {
+        let response = await fetch(`${env.BASE_URL}packages/reserve`, {
+            method: 'POST', body: JSON.stringify({
+                package_id: item.package_id,
+                package_destination: item.package_destination,
+                package_duration: item.package_duration,
+                package_travelers_count: item.package_travelers_count,
+                package_speciality: item.package_speciality,
+                package_price: item.package_price,
+                package_rating: item.package_rating
             }), headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': token,

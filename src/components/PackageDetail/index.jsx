@@ -15,6 +15,7 @@ export default function PackageDetail({item, isCart = false}) {
     const navigate = useNavigate();
 
     const handleSubmit = () => {
+        item.type = "package"
         item.id = item.package_id;
         item.price = item.package_price;
         addItem(item);
